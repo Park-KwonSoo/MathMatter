@@ -32,7 +32,7 @@ UserSchema.methods.serealize = function() {
 UserSchema.methods.generateToken = function () {
     const token = jwt.sign (
         {
-            _id : this.id,
+            _id : this._id,
             userId : this.userId
         },
         process.env.JWT_SECRET,

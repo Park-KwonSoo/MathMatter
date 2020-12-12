@@ -7,3 +7,5 @@ auth.post('/login', authCtrl.login);
 auth.post('/register', authCtrl.register);
 auth.post('/logout', authCtrl.logout);
 auth.delete('/withdraw', authCtrl.withdraw);
+
+module.exports = auth;

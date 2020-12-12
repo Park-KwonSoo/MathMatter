@@ -10,7 +10,7 @@ require("dotenv").config();
 
 const app = new Koa();
 const router = new Router();
-const accessLogStream = fs.createWriteStream(__dirname + "access.log", {
+const accessLogStream = fs.createWriteStream(__dirname + "_access.log", {
     flags : "a",
 });
 
@@ -32,5 +32,5 @@ mongoose.connect(MONGO_URL, {
     });
 
 app.listen(SERVER_PORT, () => {
-    console.log("Connected to PORT" + SERVER_PORT);
+    console.log("Connected to PORT " + SERVER_PORT);
 })

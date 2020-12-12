@@ -1,19 +1,7 @@
 const jwt = require("jsonwebtoken");
+const User = require('../models/user');
 
-function decodedToken(token) {
-    return new Promise(
-        (resolve, reject) => {
-            jwt.verify(token, JWT_SECRET, (error, decoded) => {
-                if(error) {
-                    reject(error);
-                }
-                resolve(decoded);
-            })
-        }
-    )
-}
-
-exports.jwtMiddleware = async (ctx, next) => {
+const jwtMiddleware = async (ctx, next) => {
     const token = ctx.cookies.get("access_token");
 
     if(!token) {
@@ -26,6 +14,17 @@ exports.jwtMiddleware = async (ctx, next) => {
             userId : decoded._userId
         };
         const now = Math.floor(Date.now() / 1000);
+        if (decoded.exp - now < 60 * 60 * 24 * 3.5) {
+            const user = await User.findById(decoded._id);
+            const token = user.generateToken();
+
+            ctx.cookies.set('access_token', token, {
+                httpOnly : true,
+                maxAge : 1000 * 60 * 60 * 24 * 7
+            })
+        }
+
+        return next();
 
 
     } catch(e) {
@@ -33,3 +32,5 @@ exports.jwtMiddleware = async (ctx, next) => {
     }
 
 };
+
+module.exports = jwtMiddleware;

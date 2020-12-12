@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 const User = require('../../models/user');
 const Profile = require('../../models/profile');
 
@@ -27,7 +28,7 @@ exports.register = async (ctx) => {
     }
 
     //이미 존재하는 회원인지 확인하게 위해 mongoDB의 UserSchema에서 해당 회원을 확인
-    const existUser = await User.findById(userId);
+    const existUser = await User.findByUserId(userId);
 
     //만약 유저가 있다면 409 에러
     if(existUser) {
@@ -55,6 +56,8 @@ exports.register = async (ctx) => {
         //잘 저장되었으면 해당 유저의 정보를 출력
         console.log(user);
         console.log(profile);
+
+        ctx.body = "회원가입 성공";
     } catch(e) {
         //예상치 못한 에러 발생 시 500
         return ctx.throw(500, e);
@@ -78,7 +81,7 @@ exports.login = async (ctx) => {
 
     //아이디가 유효한지 검사한다.
     try {
-        const user = await User.findById(userId);
+        const user = await User.findByUserId(userId);
 
         //만약 해당하는 유저가 없다면 에러코드 401
         if(!user) {
@@ -93,12 +96,10 @@ exports.login = async (ctx) => {
             return;
         }
 
-        ctx.body = "로그인 성공";
-
         //로그인 성공 시 쿠키 생성
         try {
             //토큰을 생성한 후
-            const token = await user.generateToke();
+            const token = await user.generateToken();
 
             //페이지의 쿠키를 로그인한 토큰으로 설정한다.
             ctx.cookies.set('access_token', token, {
@@ -106,6 +107,7 @@ exports.login = async (ctx) => {
                 maxAge : 1000 * 60 * 60 * 24 * 7
             });
 
+            ctx.body = "로그인 성공";
         } catch(e) {
             return ctx.throw(500, e);
         }
@@ -124,6 +126,8 @@ exports.logout = async (ctx) => {
         httpOnly : true,
         maxAge : 0
     });
+    
+    ctx.body = "로그아웃 성공";
 }
 
 /**
@@ -137,11 +141,13 @@ exports.withdraw = async (ctx) => {
     }
     
     //토큰을 디코드해서 ID를 받아오고 그 ID를 삭제한다.
-    const decodedToken = await decodedToken(token);
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken.userId;
 
     try {
         await User.deleteOne({ userId });
+        await Profile.deleteOne({ userId });
+        ctx.body = "탈퇴 성공";
     } catch(e) {
         return ctx.throw(500, e);
     }
