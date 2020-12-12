@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema ({
-    subject : { type : Number, default : true },
+    subject : { type : Number, required : true },
     questiontype : [Number],
     body : String,
     answer : String,
