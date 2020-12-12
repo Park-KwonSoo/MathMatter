@@ -58,6 +58,36 @@ exports.setProfile = async (ctx) => {
  }
 
 /**
+ *  GET Profile
+ *  Get User Profile
+ */
+exports.getProfile = async(ctx) => {
+    const token = ctx.cookies.get('access_token');
+    if(!token) {
+        return;
+    }
+
+    try {
+        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        const profile = await Profile.findByUserId(userId);
+        
+        ctx.body = {
+            userId : profile.userId,
+            userName : profile.userName,
+            birth : profile.birth,
+            age : profile.age,
+            email : profile.email,
+            phoneNumber : profile.phoneNumber,
+        };
+    } catch(e) {
+        ctx.status = 500;
+        return;
+    }
+}
+
+
+/**
  *  GET Print List
  * 
  */

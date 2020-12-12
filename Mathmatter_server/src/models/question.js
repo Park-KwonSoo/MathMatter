@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const QuestionSchema = new Schema ({
     subject : { type : Number, required : true },
-    questiontype : [Number],
+    questionType : [Number],
     body : String,
     answer : String,
     solution : String,

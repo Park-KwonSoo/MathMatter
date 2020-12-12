@@ -34,7 +34,6 @@ exports.setPrint = async (ctx, next) => {
         const profile = await Profile.findByUserId(userId);
         //타입에 따라 생성된 프린트
         let print;
-
         //pamas의 type(1, 2, 3)에 따라 내신형, 수능형, 유형별로 결정된다.
         switch (type) {
             case '1':
@@ -47,13 +46,14 @@ exports.setPrint = async (ctx, next) => {
                 print = await setPrint.setTypeT(ctx.request.body);
                 break;
         }
-        
+
         //새로 생성된 프린트를 데이터베이스에 저장한다.
-        const newPrint = new Print({
+        const newPrint = await new Print({
             typeOfPrint : print.typeOfPrint,
             typeOfExam : print.typeOfExam,
             numberOfQuestion : print.numberOfQuestion,
-            questionList : print.questionList
+            questionList : print.questionList,
+            difficulty : print.difficulty
         });
 
         //해당 프로필의 list에 새 프린트를 넣어주고
