@@ -1,4 +1,3 @@
-const { number } = require('joi');
 const Question = require('../models/question');
 
 /**
