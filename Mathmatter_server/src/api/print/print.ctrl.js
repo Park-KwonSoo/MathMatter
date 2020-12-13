@@ -65,7 +65,7 @@ exports.setPrint = async (ctx, next) => {
         //프린트 정보까지 저장한다.
         await newPrint.save();
 
-        ctx.body = profile;
+        ctx.body = newPrint;
     } catch(e) {
         ctx.throw(500, e);
     }
