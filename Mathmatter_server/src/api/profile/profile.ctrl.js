@@ -109,7 +109,13 @@ exports.getPrintList = async (ctx) => {
     } catch(e) {
         return ctx.throw(500, e);
     }
-    
+}
 
+/**
+ *  GET Write LIST
+ *  GET user Writing List
+ */
+exports.getWriteList = async (ctx) => {
+    
 }
  

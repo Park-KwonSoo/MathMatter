@@ -72,5 +72,5 @@ exports.setPrint = async (ctx, next) => {
 };
 
 exports.printing = async (ctx) => {
-
+    
 };
