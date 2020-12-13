@@ -116,6 +116,31 @@ exports.getPrintList = async (ctx) => {
  *  GET user Writing List
  */
 exports.getWriteList = async (ctx) => {
-    
+    const token = ctx.cookies.get('access_token');
+
+    if(!token) {
+        return;
+    }
+
+    try {
+        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+        
+        const profile = await Profile.findByUserId(userId);
+
+        const writeList = profile.getWriteList();
+
+        let titleList = [];
+
+        for(let i = 0; i < writeList.length; i++) {
+            titleList.push(writeList[i].title);
+        }
+
+
+        ctx.body = titleList;
+
+    } catch(e) {
+        ctx.stauts = 500;
+        return;
+    }
 }
  

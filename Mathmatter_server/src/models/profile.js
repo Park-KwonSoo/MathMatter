@@ -19,7 +19,11 @@ ProfileSchema.statics.findByUserId = function(userId) {
 
 ProfileSchema.methods.addPrintList = function(Object) {
     this.printList.push(Object);
-}
+};
+
+ProfileSchema.methods.addWriteList = function(Object) {
+    this.writeList.push(Object);
+};
 
 ProfileSchema.methods.getAge = function() {
     return this.age;
@@ -31,6 +35,17 @@ ProfileSchema.methods.getPrintList = function() {
 
 ProfileSchema.methods.getWriteList = function() {
     return this.writeList;
+};
+
+ProfileSchema.methods.deleteWrite = function(_id) {
+    let i = 0;
+    for(i = 0; i < this.writeList.length; i++){
+        if(this.writeList[i]._id.equals(_id)) {
+            break;
+        }
+    }
+
+    this.writeList.splice(i, 1);
 };
 
 module.exports = mongoose.model("Profile", ProfileSchema);
