@@ -71,6 +71,10 @@ exports.setPrint = async (ctx, next) => {
     }
 };
 
+/**
+ *  POST Print Menu
+ * for real Printing
+ */
 exports.printing = async (ctx) => {
-    
+    //구현 필수
 };
