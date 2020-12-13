@@ -20,7 +20,8 @@ exports.setTypeN = async function(object) {
     const questionList = await setRandomQuestion(await Question.find({
         subject
     }), numberOfQuestion, difficulty);
-
+    
+    console.log(questionList);
     const print = {
         typeOfPrint : 1,
         typeOfExam,
@@ -225,6 +226,7 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
 
         isNotExist = true;
     }
+    console.log(result);
 
     
      //dif3_list
@@ -247,6 +249,7 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
         }
          isNotExist = true;
     }
+    console.log(result);
 
       //dif4_list
       random = Math.floor(Math.random() * dif4_list.length);
@@ -269,6 +272,7 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
 
           isNotExist = true;
       }
+      console.log(result);
 
     return result;
 }
