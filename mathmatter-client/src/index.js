@@ -4,8 +4,13 @@ import Root from './Root';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+//store 생성
+import configureStore from './redux/configureStore';
+
+const store = configureStore();
+
 ReactDOM.render(
-  <Root />, document.getElementById('root')
+  <Root store = {store}/>, document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

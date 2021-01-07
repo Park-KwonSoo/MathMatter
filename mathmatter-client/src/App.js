@@ -6,8 +6,8 @@ class App extends Component {
   render() {
     return (
         <div>
-          <Route exact path = '/' Component = { Home }/>
-          <Route path = '/auth' Component = { Auth }/>
+          <Route exact path = '/' component = { Home }/>
+          <Route path = '/auth' component = { Auth }/>
         </div>
     );
   }
