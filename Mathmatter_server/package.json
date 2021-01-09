@@ -1,0 +1,16 @@
+{
+  "name": "mathmatter_server",
+  "version": "1.0.0",
+  "description": "for Mathmatter Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://khuhub.khu.ac.kr/Database_MathMatter/MathMatter.git"
+  },
+  "author": "Han",
+  "license": "ISC"
+}
