@@ -10,8 +10,11 @@ import configureStore from './redux/configureStore';
 const store = configureStore();
 
 ReactDOM.render(
-  <Root store = {store}/>, document.getElementById('root')
+  <Root store = { store }/>,
+  document.getElementById('root')
 );
+
+
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

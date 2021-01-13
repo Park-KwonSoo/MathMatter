@@ -3,6 +3,7 @@ import { handleActions, createActions } from 'redux-actions';
 
 const SET_HEADER_VISIBILITY = 'base/SET_HEADER_VISIBILITY';
 
+//visible
 export const setHeaderVisibility = createActions(SET_HEADER_VISIBILITY);
 
 const initialState = Map({
