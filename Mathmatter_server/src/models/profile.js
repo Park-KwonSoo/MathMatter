@@ -6,8 +6,8 @@ const ProfileSchema = new Schema ({
     userId : { type : String, required : true, unique : true },
     birth : { type : Date, default : Date.now, required : true },
     age : Number,
-    phoneNumber : { type : Number, unique : true},
-    email : { type : String, unique : true },
+    phoneNumber : { type : Number, unique : true, sparse : true },
+    email : { type : String, unique : true, sparse : true },
     userName : String,
     printList : [Object],
     writeList : [Object]
