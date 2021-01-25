@@ -14,12 +14,12 @@ exports.checkId = async(ctx) => {
         const existUser = await User.findByUserId(userId);
 
         if(existUser) {
-            ctx.status = 400;
-            ctx.body = "아이디가 이미 존재합니다.";
+            //ctx.status = 400;
+            ctx.body = existUser;
             console.log("아이디가 이미 존재합니다.")
             return false;
         }  else {
-            ctx.body = "사용 가능한 아이디입니다";
+            ctx.body = null;
             console.log("사용 가능한 아이디입니다.")
             return true;
         }
@@ -40,12 +40,12 @@ exports.checkEmail = async(ctx) => {
         const existUser = await Profile.findByEmail(email);
 
         if(existUser) {
-            ctx.status = 400;
-            ctx.body = "이미 존재하는 이메일입니다."
+            // ctx.status = 400;
+            ctx.body = existUser;
             console.log("이미 존재하는 이메일입니다.");
             return false;
         }   else {
-            ctx.body = "사용 가능한 이메일입니다."
+            ctx.body = null;
             console.log("사용 가능한 이메일입니다.")
             return true;
         }
