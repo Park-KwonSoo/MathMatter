@@ -68,7 +68,7 @@ exports.register = async (ctx) => {
     //joi를 이용하여 유효성을 검증한다
     const schema = Joi.object().keys({
         userId : Joi.string().min(5).max(15).required(),
-        email : Joi.email(),
+        email : Joi.string().email(),
         password : Joi.string().required()
     });
 
