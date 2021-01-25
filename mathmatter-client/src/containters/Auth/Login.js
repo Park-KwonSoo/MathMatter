@@ -24,16 +24,16 @@ class Login extends Component {
     }
 
     render() {
-        const { email, password } = this.props.form.toJS();
+        const { userId, password } = this.props.form.toJS();
         const { handleChange } = this;
 
         return (
             <AuthContent title = "Login">
                 <InputWithLabel 
-                    label = "Email" 
-                    name = "email" 
-                    placeholder = "Email"
-                    value = {email}
+                    label = "ID" 
+                    name = "userId" 
+                    placeholder = "ID"
+                    value = {userId}
                     onChange = {handleChange}
                     type = "email"/>
                 <InputWithLabel 

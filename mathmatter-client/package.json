@@ -62,6 +62,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-actions": "^2.6.5",
+    "redux-pender": "^2.0.12",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
     "sass-loader": "8.0.2",
@@ -72,6 +73,7 @@
     "terser-webpack-plugin": "4.2.3",
     "ts-pnp": "1.2.0",
     "url-loader": "4.1.1",
+    "validator": "^13.5.2",
     "web-vitals": "^0.2.4",
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.0",
@@ -160,5 +162,6 @@
     "plugins": [
       "react-hot-loader/babel"
     ]
-  }
+  },
+  "proxy": "http://localhost:23001"
 }
