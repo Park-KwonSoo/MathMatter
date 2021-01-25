@@ -67,7 +67,7 @@ class Register extends Component {
         const { AuthActions } = this.props;
         try {
             await AuthActions.checkUserIdExists(userId);
-            if(!this.props.exists.get('userId')) {
+            if(this.props.exists.get('userId')) {
                 this.setError('이미 존재하는 ID 입니다.');
             } else {
                 this.setError(null);
