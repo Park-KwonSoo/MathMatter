@@ -63,11 +63,12 @@ exports.checkEmail = async(ctx) => {
  */
 exports.register = async (ctx) => {
     //userId와 password를 받아온다/
-    const { userId, password } = ctx.request.body;
+    const { userId, email, password } = ctx.request.body;
 
     //joi를 이용하여 유효성을 검증한다
     const schema = Joi.object().keys({
         userId : Joi.string().min(5).max(15).required(),
+        email : Joi.email(),
         password : Joi.string().required()
     });
 
@@ -82,9 +83,10 @@ exports.register = async (ctx) => {
 
     //이미 존재하는 회원인지 확인하게 위해 mongoDB의 UserSchema에서 해당 회원을 확인
     const existUser = await User.findByUserId(userId);
+    const existEmail = await Profile.findByEmail(email);
 
     //만약 유저가 있다면 409 에러
-    if(existUser) {
+    if(existUser || existEmail) {
         ctx.status =409;
         return;
     }
@@ -96,7 +98,8 @@ exports.register = async (ctx) => {
             userId
         });
         const profile = new Profile ({
-            userId
+            userId,
+            email
         });
         
         //패스워드를 해쉬 처리한 후
