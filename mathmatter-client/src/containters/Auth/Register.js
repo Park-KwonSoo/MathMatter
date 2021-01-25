@@ -93,35 +93,25 @@ class Register extends Component {
             || !validate['passwordConfirm'](passwordConfirm))
             return;
 
-        // try {
-        //     await AuthActions.localReigster({
-        //         userId, email, password
-        //     });
+        try {
+            await AuthActions.localRegister({
+                userId, email, password
+            });
 
-        //     const loggedInfo = this.props.result.toJs();
-        //     console.log(loggedInfo);
+            const loggedInfo = this.props.result.toJs();
+            console.log(loggedInfo);
 
-        //     history.push('/');
+            history.push('/');
 
-        // }   catch(e) {
-        //     if(e.response.status === 409) {
-        //         const { key } = e.respones.data;
-        //         const message = key === 'email' ? "이미 존재하는 이메일입니다." : "이미 존재하는 ID입니다.";
-        //         return this.setError(message);
-        //     }
+        }   catch(e) {
+            if(e.response.status === 409) {
+                const { key } = e.respones.data;
+                const message = key === 'email' ? "이미 존재하는 이메일입니다." : "이미 존재하는 ID입니다.";
+                return this.setError(message);
+            }
 
-        //     return this.setError("알 수 없는 에러가 발생했습니다.");
-        // }
-
-        await AuthActions.localReigster({
-            userId, email, password
-        });
-
-        const loggedInfo = this.props.result.toJs();
-        console.log(loggedInfo);
-
-        history.push('/');
-
+            return this.setError("알 수 없는 에러가 발생했습니다.");
+        }
 
     }
 
