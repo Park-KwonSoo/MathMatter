@@ -25,8 +25,8 @@ class Register extends Component {
             return true;
         },
         userId : (value) => {
-            if(!isAlphanumeric(value) || isLength(value, { min : 4, max : 15 })) {
-                this.setError("아이디는 4~15 글자의 알파벳 혹은 숫자로 이루어져야 합니다.");
+            if(!isAlphanumeric(value) || !isLength(value, { min : 5, max : 15 })) {
+                this.setError("아이디는 5~15 글자의 알파벳 혹은 숫자로 이루어져야 합니다.");
                 return false;
             }
             return true;
@@ -75,6 +75,54 @@ class Register extends Component {
         } catch(e) {
             console.log(e);
         }
+    }
+
+    handleLocalRegister = async() => {
+        const { form, AuthActions, error, history } = this.props;
+        const { userId, email, password, passwordConfirm } = form.toJS();
+
+        const { validate } = this;
+
+        //에러 있으면 리턴
+        if(error)   return;
+        
+        //검증 실패하면 리턴
+        if(!validate['email'](email)
+            || !validate['userId'](userId)
+            || !validate['password'](password)
+            || !validate['passwordConfirm'](passwordConfirm))
+            return;
+
+        // try {
+        //     await AuthActions.localReigster({
+        //         userId, email, password
+        //     });
+
+        //     const loggedInfo = this.props.result.toJs();
+        //     console.log(loggedInfo);
+
+        //     history.push('/');
+
+        // }   catch(e) {
+        //     if(e.response.status === 409) {
+        //         const { key } = e.respones.data;
+        //         const message = key === 'email' ? "이미 존재하는 이메일입니다." : "이미 존재하는 ID입니다.";
+        //         return this.setError(message);
+        //     }
+
+        //     return this.setError("알 수 없는 에러가 발생했습니다.");
+        // }
+
+        await AuthActions.localReigster({
+            userId, email, password
+        });
+
+        const loggedInfo = this.props.result.toJs();
+        console.log(loggedInfo);
+
+        history.push('/');
+
+
     }
 
     componentWillUnmount() {
@@ -143,7 +191,7 @@ class Register extends Component {
                 {
                     error && <AuthError>{error}</AuthError>
                 }
-                <AuthButton> Register to Start! </AuthButton>
+                <AuthButton onClick = {this.handleLocalRegister}> Register to Start! </AuthButton>
                 <AlignedLink to = "/auth/login"> Go back to Login </AlignedLink>
             </AuthContent>
         );
@@ -154,7 +202,8 @@ export default connect(
     (state) => ({
         form : state.auth.getIn(['register', 'form']),
         error : state.auth.getIn(['register', 'error']),
-        exists : state.auth.getIn(['register', 'exists'])
+        exists : state.auth.getIn(['register', 'exists']),
+        result : state.auth.get('result')
     }),
     (dispatch) => ({
         AuthActions : bindActionCreators(authActions, dispatch)

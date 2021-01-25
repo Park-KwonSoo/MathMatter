@@ -29,7 +29,7 @@ export const initializeForm = createAction(INITIALIZE_FORM);
 export const checkEmailExists = createAction(CHECK_EMAIL_EXISTS, AuthAPI.checkEmailExists);
 export const checkUserIdExists = createAction(CHECK_USERID_EXISTS, AuthAPI.checkUserIdExists);
 
-//{ phoneNumber, email, password }
+//{ userId, email, password }
 export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister);
 // { email, password }
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin);
@@ -74,11 +74,11 @@ export default handleActions({
     },
     ...pender({
         type : CHECK_EMAIL_EXISTS,
-        onSuccess : (state, action) => state.setIn(['register', 'exists', 'email'], action.payload.data.exists)
+        onSuccess : (state, action) => state.setIn(['register', 'exists', 'email'], action.payload.data)
     }),
     ...pender({
         type : CHECK_USERID_EXISTS,
-        onSuccess : (state, action) => state.setIn(['register', 'exists', 'userId'], action.payload.data.exists)
+        onSuccess : (state, action) => state.setIn(['register', 'exists', 'userId'], action.payload.data)
     }),
     ...pender({
         type : LOCAL_REGISTER,
