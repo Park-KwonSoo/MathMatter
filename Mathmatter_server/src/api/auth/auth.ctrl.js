@@ -4,6 +4,59 @@ const User = require('../../models/user');
 const Profile = require('../../models/profile');
 
 /**
+ *  GET UserId
+ *  if UserId Exists : return false
+ */
+exports.checkId = async(ctx) => {
+    const { userId } = ctx.params;  //아이디가 존재하는지 확인
+
+    try {
+        const existUser = await User.findByUserId(userId);
+
+        if(existUser) {
+            ctx.status = 400;
+            ctx.body = "아이디가 이미 존재합니다.";
+            console.log("아이디가 이미 존재합니다.")
+            return false;
+        }  else {
+            ctx.body = "사용 가능한 아이디입니다";
+            console.log("사용 가능한 아이디입니다.")
+            return true;
+        }
+
+    }   catch(e) {
+        return ctx.throw(500, e);
+    }
+}
+
+/**
+ *  GET UserEmail
+ *  if UserEmail Exists : return false
+ */
+exports.checkEmail = async(ctx) => {
+    const { email } = ctx.params;
+
+    try {
+        const existUser = await Profile.findByEmail(email);
+
+        if(existUser) {
+            ctx.status = 400;
+            ctx.body = "이미 존재하는 이메일입니다."
+            console.log("이미 존재하는 이메일입니다.");
+            return false;
+        }   else {
+            ctx.body = "사용 가능한 이메일입니다."
+            console.log("사용 가능한 이메일입니다.")
+            return true;
+        }
+
+    }   catch(e) {
+        return ctx.throw(500, e);
+    }
+}
+
+
+/**
  *  POST    Register
  *  user ID
  *  Passwrod

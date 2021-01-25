@@ -17,6 +17,10 @@ ProfileSchema.statics.findByUserId = function(userId) {
     return this.findOne({userId});
 };
 
+ProfileSchema.statics.findByEmail = function(email) {
+    return this.findOne({email});
+};
+
 ProfileSchema.methods.addPrintList = function(Object) {
     this.printList.push(Object);
 };
