@@ -27,11 +27,10 @@ const BorderedButton = styled(Link)`
     }
 `;
 
-
-const LoginButton = () => {
+const LogoutButton = ({onClick}) => {
     return (
-        <BorderedButton to = '/auth/login'>Login</BorderedButton>
+        <BorderedButton onClick = {onClick}>Logout</BorderedButton>
     );
-};
+}
 
-export default LoginButton;
+export default LogoutButton;

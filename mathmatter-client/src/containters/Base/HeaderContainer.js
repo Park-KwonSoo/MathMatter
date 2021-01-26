@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Header, { LoginButton } from '../../components/Base/Header';
+import Header, { LoginButton, LogoutButton } from '../../components/Base/Header';
 import { connect } from 'react-redux';
-import * as ProfileActions from '../../redux/modules/profile';
+import * as profileActions from '../../redux/modules/profile';
 import { bindActionCreators } from 'redux';
 import storage from '../../lib/storage';
+
 
 class HeaderContainer extends Component {
 
@@ -20,14 +21,24 @@ class HeaderContainer extends Component {
     }
 
     render() {
-        const { user } = this.props;
+        const { profile } = this.props;
+        const { handleLogout } = this;
         
         return (
             <Header>
-                 <LoginButton/>
+                { profile.get('logged')
+                    ? <LogoutButton onClick = {handleLogout}/> : <LoginButton/>
+                } 
             </Header>
         );
     }
 }
 
-export default HeaderContainer;
+export default connect(
+    (state) => ({
+        profile : state.profile
+    }),
+    (dispatch) => ({
+        ProfileActions : bindActionCreators(profileActions, dispatch)
+    })
+)(HeaderContainer);

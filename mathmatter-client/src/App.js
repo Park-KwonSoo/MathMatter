@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import HeaderContainer from './containters/Base/HeaderContainer';
 import { Home, Auth } from './pages';
@@ -15,7 +15,7 @@ class App extends Component {
     if(!loggedInfo) return; //로그인되어있지 않으면 중지
 
     const { ProfileActions } = this.props;
-    await ProfileActions.setLoggedInfo(loggedInfo);
+    await ProfileActions.setLoggedInfo();
 
     try {
       await ProfileActions.checkStatus();

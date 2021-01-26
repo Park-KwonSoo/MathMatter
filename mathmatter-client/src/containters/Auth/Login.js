@@ -5,8 +5,18 @@ import { bindActionCreators } from 'redux';
 import * as authActions from '../../redux/modules/auth';
 import * as profileActions from '../../redux/modules/profile';
 import storage from '../../lib/storage';
+import queryString from 'query-string';
 
 class Login extends Component {
+
+    componentDidMount() {
+        const { location } = this.props;
+        const query = queryString.parse(location.search);
+
+        if(query.expired !== undefined) {
+            this.setError('세션이 만료되었습니다. 다시 로그인 하세요.');
+        }
+    }
 
     componentWillUnmount() {
         const { AuthActions } = this.props;
