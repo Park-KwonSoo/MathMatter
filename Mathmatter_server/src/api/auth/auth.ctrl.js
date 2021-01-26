@@ -183,7 +183,11 @@ exports.logout = async (ctx) => {
         maxAge : 0
     });
     
-    ctx.body = "로그아웃 성공";
+    try {
+        ctx.body = "로그아웃 성공";
+    }   catch(e) {
+        return ctx.throw(500, e);
+    }
 }
 
 /**
@@ -208,4 +212,22 @@ exports.withdraw = async (ctx) => {
         return ctx.throw(500, e);
     }
 
+}
+
+/**
+ *  GET USER PROFILE
+ */
+exports.check = async(ctx) => {
+    const token = ctx.cookies.get('access_token');
+
+    if(!token)  return;
+
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+
+    try {
+        ctx.body = await Profile.findByUserId(userId);
+    } catch(e) {
+        return ctx.throw(500, e);
+    }
 }
