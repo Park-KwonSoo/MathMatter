@@ -98,14 +98,14 @@ class Register extends Component {
                 userId, email, password
             });
 
-            const loggedInfo = this.props.result.toJs();
+            const loggedInfo = this.props.result.toJS();
             console.log(loggedInfo);
 
             history.push('/');
 
         }   catch(e) {
             if(e.response.status === 409) {
-                const { key } = e.respones.data;
+                const { key } = e.response.data;
                 const message = key === 'email' ? "이미 존재하는 이메일입니다." : "이미 존재하는 ID입니다.";
                 return this.setError(message);
             }
@@ -142,7 +142,7 @@ class Register extends Component {
     render() {
         const { error } = this.props;
         const { email, userId, password, passwordConfirm } = this.props.form.toJS();
-        const { handleChange } = this;
+        const { handleChange, handleLocalRegister } = this;
 
 
         return (
@@ -181,7 +181,7 @@ class Register extends Component {
                 {
                     error && <AuthError>{error}</AuthError>
                 }
-                <AuthButton onClick = {this.handleLocalRegister}> Register to Start! </AuthButton>
+                <AuthButton onClick = {handleLocalRegister}> Register to Start! </AuthButton>
                 <AlignedLink to = "/auth/login"> Go back to Login </AlignedLink>
             </AuthContent>
         );

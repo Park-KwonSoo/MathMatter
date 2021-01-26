@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, AlignedLink } from '../../components/Auth';
+import { AuthContent, InputWithLabel, AuthButton, AlignedLink, AuthError } from '../../components/Auth';
 import { connect } from 'react-redux';
-import * as authActions from '../../redux/modules/auth';
 import { bindActionCreators } from 'redux';
+import * as authActions from '../../redux/modules/auth';
+import * as profileActions from '../../redux/modules/profile';
+import storage from '../../lib/storage';
 
 class Login extends Component {
 
@@ -23,9 +25,41 @@ class Login extends Component {
         });
     }
 
+    setError = (message) => {
+        const { AuthActions } = this.props;
+        AuthActions.setError({
+            form : 'login',
+            message
+        });
+        return false;
+    }
+
+    handleLocalLogin = async() => {
+        const { form, AuthActions, ProfileActions, history } = this.props;
+        const { userId, password } = form.toJS();
+
+        try {
+            await AuthActions.localLogin({userId, password});
+            const loggedInfo = this.props.result.toJS();
+
+            ProfileActions.setLoggedInfo();
+            history.push('/');
+
+            storage.set('loggedInfo', loggedInfo);
+
+        }   catch(e) {
+            console.log(e);
+            this.setError("로그인에 실패하였습니다.");
+        }
+
+
+    }
+
+
     render() {
+        const { error } = this.props;
         const { userId, password } = this.props.form.toJS();
-        const { handleChange } = this;
+        const { handleChange, handleLocalLogin } = this;
 
         return (
             <AuthContent title = "Login">
@@ -43,8 +77,11 @@ class Login extends Component {
                     value = {password}
                     onChange = {handleChange} 
                     type = "password"/>
+                {
+                    error && <AuthError>{error}</AuthError>
+                }
                 <AlignedLink to = '/auth/register'> Register </AlignedLink>
-                <AuthButton> Login </AuthButton>
+                <AuthButton onClick = {handleLocalLogin}> Login </AuthButton>
             </AuthContent>
         );
     }
@@ -52,9 +89,12 @@ class Login extends Component {
 
 export default connect(
     (state) => ({
-        form : state.auth.getIn(['login', 'form'])
+        form : state.auth.getIn(['login', 'form']),
+        error : state.auth.getIn(['login', 'error']),
+        result : state.auth.get('result')
     }),
     (dispatch) => ({
-        AuthActions : bindActionCreators(authActions, dispatch)
+        AuthActions : bindActionCreators(authActions, dispatch),
+        ProfileActions : bindActionCreators(profileActions, dispatch)
     })
 )(Login);

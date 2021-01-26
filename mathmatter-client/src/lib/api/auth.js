@@ -1,10 +1,10 @@
-import axios from 'axios';
+import client from './client';
 
-export const checkEmailExists = (email) => axios.get('/api/auth/exists/email/' + email);
-export const checkUserIdExists = (userId) => axios.get('/api/auth/exists/userId/' + userId);
+export const checkEmailExists = (email) => client.get('/api/auth/exists/email/' + email);
+export const checkUserIdExists = (userId) => client.get('/api/auth/exists/userId/' + userId);
 
-export const localRegister = ({userId, email, password }) => axios.post('/api/auth/register', { userId, email, password });
-export const localLogin = ({userId, password}) => axios.post('/api/auth/login', { userId, password });
+export const localRegister = ({userId, email, password }) => client.post('/api/auth/register', { userId, email, password });
+export const localLogin = ({userId, password}) => client.post('/api/auth/login', { userId, password });
 
-export const checktStatus = () => axios.get('/api/auth/check');
-export const logout = () => axios.post('/api/auth/logout');
+export const checkStatus = () => client.get('/api/auth/check');
+export const logout = () => client.post('/api/auth/logout');
