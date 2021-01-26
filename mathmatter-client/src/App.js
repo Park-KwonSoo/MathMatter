@@ -15,7 +15,7 @@ class App extends Component {
     if(!loggedInfo) return; //로그인되어있지 않으면 중지
 
     const { ProfileActions } = this.props;
-    ProfileActions.setLoggedInfo();
+    await ProfileActions.setLoggedInfo(loggedInfo);
 
     try {
       await ProfileActions.checkStatus();
@@ -23,8 +23,10 @@ class App extends Component {
       storage.remove('loggedInfo');
       window.location.href = '/auth/login?expired';
     }
+  }
 
-
+  componentDidMount() {
+    this.initializeUserInfo();
   }
 
   render() {
@@ -38,4 +40,9 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(
+  null,
+  (dispatch) => ({
+    ProfileActions : bindActionCreators(profileActions, dispatch)
+  })
+)(App);

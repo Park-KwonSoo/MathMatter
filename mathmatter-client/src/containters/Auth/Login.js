@@ -42,7 +42,7 @@ class Login extends Component {
             await AuthActions.localLogin({userId, password});
             const loggedInfo = this.props.result.toJS();
 
-            ProfileActions.setLoggedInfo();
+            await ProfileActions.setLoggedInfo(loggedInfo);
             history.push('/');
 
             storage.set('loggedInfo', loggedInfo);

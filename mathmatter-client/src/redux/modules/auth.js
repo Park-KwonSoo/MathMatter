@@ -88,6 +88,10 @@ export default handleActions({
         type : LOCAL_LOGIN,
         onSuccess : (state, action) => state.set('result', Map(action.payload.data))
     }),
+    ...pender({
+        type : LOGOUT,
+        onSuccess : (state, action) => state.set(initialState)
+    }),
     [SET_ERROR] : (state, action) => {
         const { form, message } = action.payload;
         return state.setIn([form, 'error'], message);
