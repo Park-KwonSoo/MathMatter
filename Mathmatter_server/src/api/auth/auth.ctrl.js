@@ -104,6 +104,9 @@ exports.register = async (ctx) => {
         //mongoDB에 저장한다
         await user.save();
         await profile.save();
+
+        ctx.body = "complete";
+
     } catch(e) {
         //예상치 못한 에러 발생 시 500
         return ctx.throw(500, e);
@@ -152,6 +155,8 @@ exports.login = async (ctx) => {
                 httpOnly : true,
                 maxAge : 1000 * 60 * 60 * 24 * 7
             });
+
+            ctx.body = "complete";
         } catch(e) {
             return ctx.throw(500, e);
         }
@@ -171,6 +176,8 @@ exports.logout = async (ctx) => {
             httpOnly : true,
             maxAge : 0
         });
+
+        ctx.body = "complete";
     }   catch(e) {
         return ctx.throw(500, e);
     }
@@ -193,6 +200,8 @@ exports.withdraw = async (ctx) => {
     try {
         await User.deleteOne({ userId });
         await Profile.deleteOne({ userId });
+
+        ctx.body = "complete";
     } catch(e) {
         return ctx.throw(500, e);
     }
