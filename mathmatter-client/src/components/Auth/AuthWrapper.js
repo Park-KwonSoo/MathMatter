@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow } from '../../lib/styleUtils';
-import { link } from 'joi';
+
+import { Link } from 'react-router-dom';
 
 //화면 중앙에 위치시킴
 const Positioner = styled.div`
@@ -27,7 +28,7 @@ const LogoWrapper = styled.div`
     justify-content : center;
 `;
 
-const Logo = styled(link)`
+const Logo = styled(Link)`
     color : white;
     font-family : Raleway;
     font-size : 2.4rem;
