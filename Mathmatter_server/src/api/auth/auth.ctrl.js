@@ -16,11 +16,9 @@ exports.checkId = async(ctx) => {
         if(existUser) {
             //ctx.status = 400;
             ctx.body = existUser;
-            console.log("아이디가 이미 존재합니다.")
             return false;
         }  else {
             ctx.body = null;
-            console.log("사용 가능한 아이디입니다.")
             return true;
         }
 
@@ -42,11 +40,9 @@ exports.checkEmail = async(ctx) => {
         if(existUser) {
             // ctx.status = 400;
             ctx.body = existUser;
-            console.log("이미 존재하는 이메일입니다.");
             return false;
         }   else {
             ctx.body = null;
-            console.log("사용 가능한 이메일입니다.")
             return true;
         }
 
@@ -108,12 +104,6 @@ exports.register = async (ctx) => {
         //mongoDB에 저장한다
         await user.save();
         await profile.save();
-
-        //잘 저장되었으면 해당 유저의 정보를 출력
-        console.log(user);
-        console.log(profile);
-
-        ctx.body = "회원가입 성공";
     } catch(e) {
         //예상치 못한 에러 발생 시 500
         return ctx.throw(500, e);
@@ -162,8 +152,6 @@ exports.login = async (ctx) => {
                 httpOnly : true,
                 maxAge : 1000 * 60 * 60 * 24 * 7
             });
-
-            ctx.body = "로그인 성공";
         } catch(e) {
             return ctx.throw(500, e);
         }
@@ -178,13 +166,11 @@ exports.login = async (ctx) => {
  *  POST Logout
  */
 exports.logout = async (ctx) => {
-    ctx.cookies.set('access_token', null, {
-        httpOnly : true,
-        maxAge : 0
-    });
-    
     try {
-        ctx.body = "로그아웃 성공";
+        ctx.cookies.set('access_token', null, {
+            httpOnly : true,
+            maxAge : 0
+        });
     }   catch(e) {
         return ctx.throw(500, e);
     }
@@ -207,7 +193,6 @@ exports.withdraw = async (ctx) => {
     try {
         await User.deleteOne({ userId });
         await Profile.deleteOne({ userId });
-        ctx.body = "탈퇴 성공";
     } catch(e) {
         return ctx.throw(500, e);
     }
@@ -219,7 +204,6 @@ exports.withdraw = async (ctx) => {
  */
 exports.check = async(ctx) => {
     const { user } = ctx.state;
-    console.log(user);
 
     if(!user) {
         ctx.status = 403;
