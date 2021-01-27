@@ -10,17 +10,22 @@ const SET_VALIDATED = 'profile/SET_VALIDATED'; //validated값 설정
 const LOGOUT = 'profile/LOGOUT';   //로그아웃
 const CHECK_STATUS = 'profile/CHECK_STATUS'    //현재 로그인 상태 확인
 
+const GET_PROFILE_INFO = 'profile/GET_PROFILE_INFO';    //로그인된 유저의 프로필 가져옴
+
 export const setLoggedInfo = createAction(SET_LOGGED_INFO);
 export const setValidated = createAction(SET_VALIDATED);
 export const logout = createAction(LOGOUT, AuthAPI.logout);
 export const checkStatus = createAction(CHECK_STATUS, AuthAPI.checkStatus);
+
+export const getProfileInfo = createAction(GET_PROFILE_INFO, ProfileAPI.getPrintList);
 
 const initialState = Map({
     loggedInfo : Map({
         userId : null
     }),
     logged : false,
-    validated : false
+    validated : false,
+    profileInfo : Map({})
 });
 
 export default handleActions({
@@ -30,5 +35,9 @@ export default handleActions({
         type : CHECK_STATUS,
         onSuccess : (state, action) => state.setIn(['loggedInfo', 'userId'], action.payload.data).set('validated', true),
         onFailure : () => (initialState)
+    }),
+    ...pender({
+        type : GET_PROFILE_INFO,
+        onSuccess : (state, action) => state.set('profileInfo', action.payload.data)
     })
 }, initialState);
