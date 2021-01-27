@@ -129,14 +129,7 @@ exports.getWriteList = async (ctx) => {
 
         const writeList = profile.getWriteList();
 
-        let titleList = [];
-
-        for(let i = 0; i < writeList.length; i++) {
-            titleList.push(writeList[i].title);
-        }
-
-
-        ctx.body = titleList;
+        ctx.body = writeList;
 
     } catch(e) {
         ctx.stauts = 500;
