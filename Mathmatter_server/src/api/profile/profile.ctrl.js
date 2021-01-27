@@ -127,9 +127,7 @@ exports.getWriteList = async (ctx) => {
         
         const profile = await Profile.findByUserId(userId);
 
-        const writeList = profile.getWriteList();
-
-        ctx.body = writeList;
+        ctx.body = profile.getWriteList();;
 
     } catch(e) {
         ctx.stauts = 500;
