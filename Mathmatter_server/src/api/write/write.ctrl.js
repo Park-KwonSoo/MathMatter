@@ -27,8 +27,6 @@ exports.writing = async (ctx) => {
             body
         });
 
-        console.log(write);
-
         //프로필 작성자 목록에 글 추가 해준다
         await profile.addWriteList(write);
         await Profile.updateOne({ userId }, profile, {
@@ -63,11 +61,8 @@ exports.seeWriting = async (ctx) => {
 
     //로그인한 사용자만 글을 읽을 수 있다.
     const token = ctx.cookies.get('access_token');
-    if(!token) {
-        ctx.body = "글을 읽을 권한이 없습니다.";
-        return;
-    }
-
+    if(!token) return;
+    
     //postID를 가진 글을 읽는다.
     try {
         const write = await Write.findByPostId(postId);
@@ -90,10 +85,7 @@ exports.seeWriting = async (ctx) => {
 */
 exports.deleteWriting = async(ctx) => {
     const token = ctx.cookies.get('access_token');
-    if(!token) {
-        ctx.body = '삭제할 권한이 없습니다.'
-        return;
-    }
+    if(!token)  return;
 
     try {
         const { userId } = jwt.verify(token, process.env.JWT_SECRET);
@@ -120,7 +112,7 @@ exports.deleteWriting = async(ctx) => {
         //글 데이터베이스에서 해당 글 삭제
         await Write.deleteOne({ postId });
         
-        ctx.body = "삭제 완료";
+        ctx.body = null;
 
     } catch(e) {
         ctx.status = 500;
