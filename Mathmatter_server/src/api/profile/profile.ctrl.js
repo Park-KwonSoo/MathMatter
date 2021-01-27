@@ -48,9 +48,7 @@ exports.setProfile = async (ctx) => {
             new : true
         })
 
-
-        console.log(profile);
-        ctx.body = "프로필 설정 성공";
+        ctx.body = profile;
 
     } catch(e) {
         return ctx.throw(500, e);
@@ -105,7 +103,6 @@ exports.getPrintList = async (ctx) => {
 
         ctx.body = profile.getPrintList();
         
-        console.log("success to get Print List");
     } catch(e) {
         return ctx.throw(500, e);
     }
