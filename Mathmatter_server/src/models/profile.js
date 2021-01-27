@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const ProfileSchema = new Schema ({
     userId : { type : String, required : true, unique : true },
     birth : { type : Date, default : Date.now, required : true },
-    age : Number,
+    age : { type : Number, unique : true, sparse : true },
     phoneNumber : Number,
     email : { type : String, unique : true, sparse : true },
     userName : String,
