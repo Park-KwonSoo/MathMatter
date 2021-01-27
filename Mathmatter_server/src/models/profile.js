@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const ProfileSchema = new Schema ({
     userId : { type : String, required : true, unique : true },
     birth : { type : Date, default : Date.now, required : true },
-    age : { type : Number, unique : true, sparse : true },
-    phoneNumber : Number,
+    age : Number,
+    phoneNumber : { type : Number, unique : true, sparse : true },
     email : { type : String, unique : true, sparse : true },
     userName : String,
     printList : [Object],
