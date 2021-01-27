@@ -105,7 +105,7 @@ exports.register = async (ctx) => {
         await user.save();
         await profile.save();
 
-        ctx.body = "complete";
+        ctx.body = profile;
 
     } catch(e) {
         //예상치 못한 에러 발생 시 500
@@ -156,7 +156,9 @@ exports.login = async (ctx) => {
                 maxAge : 1000 * 60 * 60 * 24 * 7
             });
 
-            ctx.body = "complete";
+            const profile = await Profile.findByUserId(userId);
+            ctx.body = profile;
+
         } catch(e) {
             return ctx.throw(500, e);
         }
@@ -177,7 +179,7 @@ exports.logout = async (ctx) => {
             maxAge : 0
         });
 
-        ctx.body = "complete";
+        ctx.body = null;
     }   catch(e) {
         return ctx.throw(500, e);
     }
@@ -201,7 +203,7 @@ exports.withdraw = async (ctx) => {
         await User.deleteOne({ userId });
         await Profile.deleteOne({ userId });
 
-        ctx.body = "complete";
+        ctx.body = null;
     } catch(e) {
         return ctx.throw(500, e);
     }
