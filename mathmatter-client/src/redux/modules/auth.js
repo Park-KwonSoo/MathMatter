@@ -17,8 +17,6 @@ const CHECK_USERID_EXISTS = 'auth/CHECK_USERID_EXISTS';
 const LOCAL_REGISTER = 'auth/LOCAL_REGISTER';
 const LOCAL_LOGIN = 'auth/LOCAL_LOGIN';
 
-// const LOGOUT = 'auth/LOGOUT';
-
 //문자열 오류 검증
 const SET_ERROR = 'auth/SET_ERROR';
 
@@ -31,13 +29,12 @@ export const checkUserIdExists = createAction(CHECK_USERID_EXISTS, AuthAPI.check
 
 //{ userId, email, password }
 export const localRegister = createAction(LOCAL_REGISTER, AuthAPI.localRegister);
-// { email, password }
+//{ email, password }
 export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin);
-
-//  export const logout = createAction(LOGOUT, AuthAPI.logout);
 
 //{ form, message }
 export const setError = createAction(SET_ERROR);
+
 
 const initialState = Map({
     register : Map({
@@ -72,6 +69,10 @@ export default handleActions({
         const initialForm = initialState.get(action.payload);
         return state.set(action.payload, initialForm);
     },
+    [SET_ERROR] : (state, action) => {
+        const { form, message } = action.payload;
+        return state.setIn([form, 'error'], message);
+    },
     ...pender({
         type : CHECK_EMAIL_EXISTS,
         onSuccess : (state, action) => state.setIn(['register', 'exists', 'email'], action.payload.data)
@@ -87,13 +88,5 @@ export default handleActions({
     ...pender({
         type : LOCAL_LOGIN,
         onSuccess : (state, action) => state.set('result', Map(action.payload.data))
-    }),
-    // ...pender({
-    //     type : LOGOUT,
-    //     onSuccess : (state, action) => state.set(initialState)
-    // }),
-    [SET_ERROR] : (state, action) => {
-        const { form, message } = action.payload;
-        return state.setIn([form, 'error'], message);
-    }
+    })
 }, initialState);

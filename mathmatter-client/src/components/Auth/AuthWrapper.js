@@ -43,19 +43,17 @@ const Contents = styled.div`
     height : auto;
 `;
 
-const AuthWrapper = ({children}) => {
-    return (
-        <Positioner>
-            <ShadowedBox>
-                <LogoWrapper>
-                    <Logo to='/'> MathMatter </Logo>
-                </LogoWrapper>
-                <Contents>
-                    {children}
-                </Contents>
-            </ShadowedBox>
-        </Positioner>
-    )
-};
+const AuthWrapper = ({children}) => (
+    <Positioner>
+        <ShadowedBox>
+            <LogoWrapper>
+                <Logo to='/'> MathMatter </Logo>
+            </LogoWrapper>
+            <Contents>
+                {children}
+            </Contents>
+        </ShadowedBox>
+    </Positioner>
+);
 
 export default AuthWrapper;

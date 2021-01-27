@@ -50,9 +50,11 @@ class Login extends Component {
 
         try {
             await AuthActions.localLogin({userId, password});
-            const loggedInfo = this.props.result.toJS();
+            const loggedInfo = this.props.result;
+            console.log(loggedInfo);
 
             await ProfileActions.setLoggedInfo(loggedInfo);
+
             history.push('/');
 
             storage.set('loggedInfo', loggedInfo);

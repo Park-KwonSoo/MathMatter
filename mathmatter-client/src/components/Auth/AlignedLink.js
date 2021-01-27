@@ -18,7 +18,7 @@ const StyledLink = styled(Link) `
 
 const AlignedLink = ({to, children}) => (
     <Aligner>
-        <StyledLink to = { to }>{children}</StyledLink>
+        <StyledLink to = {to}>{children}</StyledLink>
     </Aligner>
 );
 

@@ -15,7 +15,7 @@ class App extends Component {
     if(!loggedInfo) return; //로그인되어있지 않으면 중지
 
     const { ProfileActions } = this.props;
-    await ProfileActions.setLoggedInfo();
+    await ProfileActions.setLoggedInfo(loggedInfo);
 
     try {
       await ProfileActions.checkStatus();
