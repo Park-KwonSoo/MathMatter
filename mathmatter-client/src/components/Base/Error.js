@@ -13,10 +13,10 @@ const Wrapper = styled.div `
     animation-fill-mode : forwards;
 `;
 
-const AuthError = ({children}) => (
+const Error = ({children}) => (
     <Wrapper>
         {children}
     </Wrapper>
 );
 
-export default AuthError;
+export default Error;

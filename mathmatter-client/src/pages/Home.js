@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { HomeContainer } from '../containters/Home';
+import { Route } from 'react-router-dom';
 
 class Home extends Component {
     render() {
         return (
-            <div></div>
+            <Route exact path = '/' component = { HomeContainer }/>
         );
     }
 }

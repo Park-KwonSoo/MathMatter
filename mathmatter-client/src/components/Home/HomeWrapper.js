@@ -3,19 +3,19 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { shadow } from '../../lib/styleUtils';
 
-const Positioner = styled.div`
+const Positioner = styled.div `
     position : absolute;
     top : 50%;
     left : 50%;
     transform : translate(-50%, -50%);
 `;
 
-const ShadowedBox = styled.div`
+const Shadow = styled.div `
     width : 500px;
-    ${shadow[2]};
+    ${shadow(2)};
 `;
 
-const NameWrapper = styled.div`
+const Wrapper = styled.div `
     background : ${oc.teal[7]};
     height : 4rem;
     display : flex;
@@ -23,31 +23,31 @@ const NameWrapper = styled.div`
     justify-content : center;
 `;
 
-const Name = styled.div`
+const Name = styled.div `
     color : white;
     font-family : Raleway;
     font-size : 2.4rem;
     letter-spacing : 5px;
-    text-decoration : none;
-`;  
+    text-decoration :none;
+`;
 
-const Contents = styled.div`
+const Contents = styled.div `
     background : white;
     padding : 2rem;
     height : auto;
 `;
 
-const ProfileWrapper = ({name, children}) => (
+const HomeWrapper = ({children}) => (
     <Positioner>
-        <ShadowedBox>
-            <NameWrapper>
-                <Name>{name}</Name>
-            </NameWrapper>
+        <Shadow>
+            <Wrapper>
+                <Name>Menu</Name>
+            </Wrapper>
             <Contents>
                 {children}
             </Contents>
-        </ShadowedBox>
+        </Shadow>
     </Positioner>
-);
+)
 
-export default ProfileWrapper;
+export default HomeWrapper;

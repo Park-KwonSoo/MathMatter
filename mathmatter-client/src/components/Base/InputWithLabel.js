@@ -4,9 +4,7 @@ import oc from 'open-color';
 
 //두 개가 함께 있을 때 상단(그 사이)에 여백을 준다.
 const Wrapper = styled.div `
-    & + & {
-        margin-top : 1rem;
-    }
+   
 `;
 
 const Label = styled.div `

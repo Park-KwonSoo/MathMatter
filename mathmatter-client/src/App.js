@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import HeaderContainer from './containters/Base/HeaderContainer';
-import { Home, Auth } from './pages';
+import { Home, Auth, Profile } from './pages';
 
 import storage from './lib/storage';
 import { connect } from 'react-redux';
@@ -16,6 +16,7 @@ class App extends Component {
 
     const { ProfileActions } = this.props;
     await ProfileActions.setLoggedInfo(loggedInfo);
+    await ProfileActions.getProfileInfo();
 
     try {
       await ProfileActions.checkStatus();
@@ -35,6 +36,7 @@ class App extends Component {
           <HeaderContainer/>
           <Route exact path = '/' component = { Home }/>
           <Route path = '/auth' component = { Auth }/>
+          <Route path = '/profile' component = { Profile }/>
         </div>
     );
   }

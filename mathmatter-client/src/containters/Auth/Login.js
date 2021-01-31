@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, AlignedLink, AuthError } from '../../components/Auth';
+import { AuthContent, AuthButton, AlignedLink } from '../../components/Auth';
+import { Error, InputWithLabel } from '../../components/Base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../../redux/modules/auth';
@@ -13,9 +14,9 @@ class Login extends Component {
         const { location } = this.props;
         const query = queryString.parse(location.search);
 
-        if(query.expired !== undefined) {
+        if(query.expired !== undefined)
             this.setError('세션이 만료되었습니다. 다시 로그인 하세요.');
-        }
+    
     }
 
     componentWillUnmount() {
@@ -53,6 +54,7 @@ class Login extends Component {
             const loggedInfo = this.props.result.toJS();
 
             await ProfileActions.setLoggedInfo(loggedInfo);
+            await ProfileActions.getProfileInfo();
 
             history.push('/');
 
@@ -62,8 +64,6 @@ class Login extends Component {
             console.log(e);
             this.setError("로그인에 실패하였습니다.");
         }
-
-
     }
 
 
@@ -89,7 +89,7 @@ class Login extends Component {
                     onChange = {handleChange} 
                     type = "password"/>
                 {
-                    error && <AuthError>{error}</AuthError>
+                    error && <Error>{error}</Error>
                 }
                 <AlignedLink to = '/auth/register'> Register </AlignedLink>
                 <AuthButton onClick = {handleLocalLogin}> Login </AuthButton>

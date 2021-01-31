@@ -1,3 +1,5 @@
 export { default as SettingButton } from './SettingButton';
-export { default as ShowPrintList } from './ShowPrintList';
-export { default as ShowProfile } from './ShowProfile';
+export { default as SaveButton } from './SaveButton';
+export { default as ProfileWrapper } from './ProfileWrapper';
+export { default as ProfileContent } from './ProfileContent';
+export { default as Information } from './Information';

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AuthContent, InputWithLabel, AuthButton, AlignedLink, AuthError } from '../../components/Auth'
+import { AuthContent, AuthButton, AlignedLink } from '../../components/Auth'
+import { Error, InputWithLabel } from '../../components/Base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as authActions from '../../redux/modules/auth';
@@ -179,7 +180,7 @@ class Register extends Component {
                     onChange = {handleChange}
                     />
                 {
-                    error && <AuthError>{error}</AuthError>
+                    error && <Error>{error}</Error>
                 }
                 <AuthButton onClick = {handleLocalRegister}> Register to Start! </AuthButton>
                 <AlignedLink to = "/auth/login"> Go back to Login </AlignedLink>
