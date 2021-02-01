@@ -34,14 +34,18 @@ exports.setProfile = async (ctx) => {
         }
 
         const { birth, phoneNumber, userName } = ctx.request.body;
-        let profile = null;
+        const profile = {
+            birth : birth,
+            phoneNumber : phoneNumber,
+            userName : userName
+        };
 
         if(birth !== "") {
             const UpdateBirth = new Date(birth);
             const now = new Date();
             const age = now.getFullYear() - UpdateBirth.getFullYear() + 1;
 
-            profile = await Profile.updateOne({ userId }, { 
+            await Profile.updateOne({ userId }, { 
                 birth : UpdateBirth, age : age 
             }, {
                 new : true
@@ -49,12 +53,12 @@ exports.setProfile = async (ctx) => {
         }
 
         if(phoneNumber !== "") 
-            profile = await Profile.updateOne({ userId }, { phoneNumber }, {
+            await Profile.updateOne({ userId }, { phoneNumber }, {
                 new : true
             })
         
         if(userName !== "")
-            profile = await Profile.updateOne({ userId }, { userName }, {
+            await Profile.updateOne({ userId }, { userName }, {
                 new : true
             })
 
