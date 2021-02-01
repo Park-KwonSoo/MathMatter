@@ -34,7 +34,7 @@ class ProfileInfo extends Component {
     
     render() {
         const { error } = this.props;
-        const { userId, userName, email, phoneNumber, birth } = this.props.profileInfo;
+        const { userId, userName, email, phoneNumber, birth, age } = this.props.profileInfo;
 
         return (
             <ProfileContent title = {userId}>
@@ -49,6 +49,9 @@ class ProfileInfo extends Component {
                 </Information>
                 <Information name = '생년 월일'>
                     {birth}
+                </Information>
+                <Information name = '나이'>
+                    {age}
                 </Information>
                 {
                     error && <Error>{error}</Error>

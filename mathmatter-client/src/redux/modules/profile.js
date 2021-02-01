@@ -69,6 +69,6 @@ export default handleActions({
     }),
     ...pender({
         type : PATCH_PROFILE_INFO,
-        onSuccess : (state, action) => state.set('profileInfo', action.payload.data)
+        onSuccess : (state, action) => state.set('changeInfo', action.payload.data)
     })
 }, initialState);

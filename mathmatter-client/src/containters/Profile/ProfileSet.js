@@ -43,8 +43,8 @@ class ProfileSet extends Component {
     }
 
     handlePatchChange = async() => {
-        const { ProfileActions, history } = this.props;
-        const { birth, phoneNumber, userName } = this.props.changeInfo.toJS();
+        const { ProfileActions, history, changeInfo } = this.props;
+        const { birth, phoneNumber, userName } = changeInfo.toJS();
 
         try {
             await ProfileActions.patchProfileInfo({birth, phoneNumber, userName});
@@ -63,7 +63,7 @@ class ProfileSet extends Component {
 
     render() {
         const { error, profileInfo } = this.props;
-        const { userId, userName, email, phoneNumber, birth } = profileInfo;
+        const { userId, userName, email, phoneNumber, birth, age } = profileInfo;
         const { handleChange, handlePatchChange } = this;
 
         return (
@@ -75,6 +75,7 @@ class ProfileSet extends Component {
                     label = '이름'
                     name = 'userName'
                     placeholder = {userName}
+                    value = {userName}
                     onChange = {handleChange}
                 />
                 <Information name = '이메일'>
@@ -84,14 +85,19 @@ class ProfileSet extends Component {
                     label = '휴대폰번호'
                     name = 'phoneNumber'
                     placeholder = {phoneNumber}
+                    value = {phoneNumber}
                     onChange = {handleChange}
                 />
                 <InputWithLabel
                     label = '생년월일'
                     name = 'birth'
                     placeholder = {birth}
+                    value = {birth}
                     onChange = {handleChange}
                 />
+                <Information name = '나이'>
+                    {age}
+                </Information>
                 {
                     error && <Error>{error}</Error>
                 }
