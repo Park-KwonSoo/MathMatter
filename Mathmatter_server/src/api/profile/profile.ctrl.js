@@ -21,10 +21,9 @@ exports.setProfile = async (ctx) => {
         
         //유효성 검증
         const schema = Joi.object().keys({
-            birth : Joi.date(),
-            phoneNumber : Joi.number(),
-            email : Joi.string().email(),
-            userName : Joi.string()
+            birth : Joi.date().allow(""),
+            phoneNumber : Joi.number().allow(""),
+            userName : Joi.string().allow("")
         });
 
         const result = schema.validate(ctx.request.body);
@@ -34,22 +33,30 @@ exports.setProfile = async (ctx) => {
             return;
         }
 
-        if(ctx.request.body.birth) {
-            const birth = new Date(ctx.request.body.birth);
-            const now = new Date();
-            const age = now.getFullYear() - birth.getFullYear() + 1;
+        const { birth, phoneNumber, userName } = ctx.request.body;
+        let profile = null;
 
-            await Profile.updateOne({ userId }, {
-                age : age
+        if(birth !== "") {
+            const UpdateBirth = new Date(birth);
+            const now = new Date();
+            const age = now.getFullYear() - UpdateBirth.getFullYear() + 1;
+
+            profile = await Profile.updateOne({ userId }, { 
+                birth : UpdateBirth, age : age 
             }, {
                 new : true
             })
         }
 
-        //로그인한 유저의 프로필을 찾아서 업데이트 해준다.
-        const profile = await Profile.updateOne({ userId }, ctx.request.body, {
-            new : true
-        });
+        if(phoneNumber !== "") 
+            profile = await Profile.updateOne({ userId }, { phoneNumber }, {
+                new : true
+            })
+        
+        if(userName !== "")
+            profile = await Profile.updateOne({ userId }, { userName }, {
+                new : true
+            })
 
         ctx.body = profile;
 
