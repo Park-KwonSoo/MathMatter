@@ -21,7 +21,7 @@ const Info = styled.div `
 `;
 
 const Information = ({name, children}) => (
-    <Wrapper>=
+    <Wrapper>
         <InfoName>{name}</InfoName>
         <Info>{children}</Info>
     </Wrapper>

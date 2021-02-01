@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import oc from 'open-color';
 
 
-const Savebutton = styled.div `
+const Savebutton = styled.button `
     color : ${oc.teal[7]};
 `;
 

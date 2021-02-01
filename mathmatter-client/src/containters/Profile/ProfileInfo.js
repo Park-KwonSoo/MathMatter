@@ -17,7 +17,10 @@ class ProfileInfo extends Component {
 
         if(query.expired !== undefined)
             this.setError("세션이 만료되었습니다.");
-        
+    }
+
+    componentWillUnmount() {
+        this.setError(null);
     }
 
     setError = (message) => {
