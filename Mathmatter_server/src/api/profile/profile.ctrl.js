@@ -21,8 +21,8 @@ exports.setProfile = async (ctx) => {
         
         //유효성 검증
         const schema = Joi.object().keys({
-            birth : Joi.date().required(),
-            phoneNumber : Joi.number().required(),
+            birth : Joi.date(),
+            phoneNumber : Joi.number(),
             email : Joi.string().email(),
             userName : Joi.string()
         });
@@ -34,19 +34,22 @@ exports.setProfile = async (ctx) => {
             return;
         }
 
-        const birth = new Date(ctx.request.body.birth);
-        const now = new Date();
-        const age = now.getFullYear() - birth.getFullYear() + 1;
+        if(ctx.request.body.birth) {
+            const birth = new Date(ctx.request.body.birth);
+            const now = new Date();
+            const age = now.getFullYear() - birth.getFullYear() + 1;
+
+            await Profile.updateOne({ userId }, {
+                age : age
+            }, {
+                new : true
+            })
+        }
 
         //로그인한 유저의 프로필을 찾아서 업데이트 해준다.
-        await Profile.updateOne({ userId }, ctx.request.body, {
+        const profile = await Profile.updateOne({ userId }, ctx.request.body, {
             new : true
         });
-        const profile = await Profile.updateOne({ userId }, {
-            age : age
-        }, {
-            new : true
-        })
 
         ctx.body = profile;
 
@@ -115,9 +118,8 @@ exports.getPrintList = async (ctx) => {
 exports.getWriteList = async (ctx) => {
     const token = ctx.cookies.get('access_token');
 
-    if(!token) {
+    if(!token)
         return;
-    }
 
     try {
         const { userId } = jwt.verify(token, process.env.JWT_SECRET);
