@@ -56,7 +56,7 @@ exports.setProfile = async (ctx) => {
             await Profile.updateOne({ userId }, { phoneNumber }, {
                 new : true
             })
-        
+
         if(userName !== "")
             await Profile.updateOne({ userId }, { userName }, {
                 new : true

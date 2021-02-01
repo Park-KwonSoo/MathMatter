@@ -156,7 +156,19 @@ exports.login = async (ctx) => {
                 maxAge : 1000 * 60 * 60 * 24 * 7
             });
 
+            //로그인 시 나이를 갱신한다.
             const profile = await Profile.findByUserId(userId);
+
+            const now = new Date();
+            const profileBirth = new Date(profile.birth);
+            const age = now.getFullYear() - profileBirth.getFullYear() + 1;
+
+            await Profile.updateOne({ userId }, {
+                age : age
+            }, {
+                new : true
+            });
+
             ctx.body = profile;
 
         } catch(e) {
