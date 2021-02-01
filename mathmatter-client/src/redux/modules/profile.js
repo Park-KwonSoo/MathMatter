@@ -6,6 +6,7 @@ import * as ProfileAPI from '../../lib/api/profile'
 import { pender } from 'redux-pender';
 
 const CHANGE_PROFILE = 'profile/CHANGE_PROFILE';
+const INITIALIZE_CHANGEINFO = 'profile/INITIALIZE_CHANGEINFO';
 
 const SET_LOGGED_INFO = 'profile/SET_LOGGED_INFO'; //로그인 정보 설정
 const SET_VALIDATED = 'profile/SET_VALIDATED'; //validated값 설정
@@ -17,7 +18,9 @@ const SET_ERROR = 'profile/SET_ERROR';  //에러 설정
 const GET_PROFILE_INFO = 'profile/GET_PROFILE_INFO';    //로그인된 유저의 프로필 가져옴
 const PATCH_PROFILE_INFO = 'profile/PATCH_PROFILE_INFO';    //로그인한 유저의 프로필 정보를 패치함
 
+
 export const changeProfile = createAction(CHANGE_PROFILE);
+export const initializeChangeInfo = createAction(INITIALIZE_CHANGEINFO);
 
 export const setLoggedInfo = createAction(SET_LOGGED_INFO);
 export const setValidated = createAction(SET_VALIDATED);
@@ -30,11 +33,11 @@ export const getProfileInfo = createAction(GET_PROFILE_INFO, ProfileAPI.getProfi
 export const patchProfileInfo = createAction(PATCH_PROFILE_INFO, ProfileAPI.patchProfile);
 
 const initialState = Map({
-    changeInfo : Map({
+    changeInfo : {
         birth : '',
         phoneNumber : '',
         userName : ''
-    }),
+    },
     loggedInfo : Map({
         userId : ''
     }),
@@ -48,6 +51,10 @@ export default handleActions({
     [CHANGE_PROFILE] : (state, action) => {
         const { name, value } = action.payload;
         return state.setIn(['changeInfo', name], value);
+    },
+    [INITIALIZE_CHANGEINFO] : (state) => state.set(initialState),
+    [LOGOUT] : (state) => {
+        state.set(initialState);
     },
     [SET_LOGGED_INFO] : (state, action) => {
         const { userId } = action.payload;

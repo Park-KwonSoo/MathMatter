@@ -21,7 +21,8 @@ class ProfileSet extends Component {
     }
 
     componentWillUnmount () {
-        this.setError(null);
+        const { ProfileActions } = this.props;
+        ProfileActions.initializeChangeInfo();
     }
     
     setError = (message) => {
@@ -51,6 +52,8 @@ class ProfileSet extends Component {
             await ProfileActions.getProfileInfo();
 
             history.push('/profile');
+
+            this.setError(null);
 
         }   catch(e) {
             console.log(e);

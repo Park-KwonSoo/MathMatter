@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ProfileWrapper } from '../components/Profile';
-import { ProfileInfo, ProfileSet } from '../containters/Profile';
+import { ProfileInfo, ProfileSet } from '../containers/Profile';
 import { Route } from 'react-router-dom';
 
 class Profile extends Component {

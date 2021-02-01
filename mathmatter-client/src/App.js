@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import HeaderContainer from './containters/Base/HeaderContainer';
+import HeaderContainer from './containers/Base/HeaderContainer';
 import { Home, Auth, Profile } from './pages';
 
 import storage from './lib/storage';
