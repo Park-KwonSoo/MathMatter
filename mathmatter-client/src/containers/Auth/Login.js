@@ -79,8 +79,7 @@ class Login extends Component {
                     name = "userId" 
                     placeholder = "ID"
                     value = {userId}
-                    onChange = {handleChange}
-                    type = "email"/>
+                    onChange = {handleChange}/>
                 <InputWithLabel 
                     label = "Password" 
                     name = "password" 

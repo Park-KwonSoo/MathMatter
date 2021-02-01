@@ -44,15 +44,13 @@ class ProfileSet extends Component {
 
     handlePatchChange = async() => {
         const { ProfileActions, history, changeInfo } = this.props;
-        const { birth, phoneNumber, userName } = changeInfo.toJS();
+        const { birth, phoneNumber, userName } = changeInfo;
 
         try {
             await ProfileActions.patchProfileInfo({birth, phoneNumber, userName});
             await ProfileActions.getProfileInfo();
 
             history.push('/profile');
-
-            console.log('설정 완료');
 
         }   catch(e) {
             console.log(e);
@@ -75,7 +73,7 @@ class ProfileSet extends Component {
                     label = '이름'
                     name = 'userName'
                     placeholder = {userName}
-                    value = {userName}
+                    //value = {userName}
                     onChange = {handleChange}
                 />
                 <Information name = '이메일'>
@@ -85,14 +83,14 @@ class ProfileSet extends Component {
                     label = '휴대폰번호'
                     name = 'phoneNumber'
                     placeholder = {phoneNumber}
-                    value = {phoneNumber}
+                    //value = {phoneNumber}
                     onChange = {handleChange}
                 />
                 <InputWithLabel
                     label = '생년월일'
                     name = 'birth'
                     placeholder = {birth}
-                    value = {birth}
+                    //value = {birth}
                     onChange = {handleChange}
                 />
                 <Information name = '나이'>
