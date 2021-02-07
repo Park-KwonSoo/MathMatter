@@ -10,11 +10,11 @@ const Title = styled.div `
     margin-bottom : 1rem;
 `;
 
-const ShowProfile = ({title, children}) => (
+const ProfileContent = ({title, children}) => (
     <div>
         <Title>{title}</Title>
         {children}
     </div>
 )
 
-export default ShowProfile;
+export default ProfileContent;

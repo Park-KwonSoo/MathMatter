@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
+
 import { shadow } from '../../lib/styleUtils';
 
 const Positioner = styled.div `
@@ -10,12 +11,12 @@ const Positioner = styled.div `
     transform : translate(-50%, -50%);
 `;
 
-const Shadow = styled.div `
+const ShadowedBox = styled.div `
     width : 500px;
-    ${shadow(2)};
+    ${shadow[2]};
 `;
 
-const Wrapper = styled.div `
+const TitleWrapper  = styled.div `
     background : ${oc.teal[7]};
     height : 4rem;
     display : flex;
@@ -23,7 +24,7 @@ const Wrapper = styled.div `
     justify-content : center;
 `;
 
-const Name = styled.div `
+const Title = styled.div `
     color : white;
     font-family : Raleway;
     font-size : 2.4rem;
@@ -33,21 +34,23 @@ const Name = styled.div `
 
 const Contents = styled.div `
     background : white;
-    padding : 2rem;
-    height : auto;
+    padding : 3rem;
+    display : flex;
+    align-items : center;
+    justify-content : center;
 `;
 
-const HomeWrapper = ({children}) => (
+const PrintMenuWrapper = ({title, children}) => (
     <Positioner>
-        <Shadow>
-            <Wrapper>
-                <Name>Menu</Name>
-            </Wrapper>
+        <ShadowedBox>
+            <TitleWrapper>
+                <Title>{title}</Title>
+            </TitleWrapper>
             <Contents>
                 {children}
             </Contents>
-        </Shadow>
+        </ShadowedBox>
     </Positioner>
-)
+);
 
-export default HomeWrapper;
+export default PrintMenuWrapper;

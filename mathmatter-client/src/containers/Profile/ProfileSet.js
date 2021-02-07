@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as authActions from '../../redux/modules/auth';
 import * as profileActions from '../../redux/modules/profile';
 
 import { ProfileContent, Information, SaveButton } from '../../components/Profile';
@@ -117,7 +116,6 @@ export default connect (
         changeInfo : state.profile.get('changeInfo')
     }),
     (dispatch) => ({
-        AuthActions : bindActionCreators(authActions, dispatch),
         ProfileActions : bindActionCreators(profileActions, dispatch)
     })
 )(ProfileSet);

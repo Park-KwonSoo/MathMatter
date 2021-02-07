@@ -29,13 +29,26 @@ class HomeContainer extends Component {
         const { logged } = this.props;
         const { handleGetProfile } = this;
 
-        return(
-           <HomeWrapper>
-               {
-                   logged ? <IsLoggin onClick = {handleGetProfile}/> : <NotLoggin/>
-               }
-           </HomeWrapper>
-        )
+        if(logged) {
+            return (
+                <HomeWrapper>
+                    <IsLoggin to ='/profile' onClick = {handleGetProfile}>
+                        프로필메뉴
+                    </IsLoggin>
+                    <IsLoggin to = '/print'>
+                        프린트목록
+                    </IsLoggin>
+                    <IsLoggin to = '/write'>
+                        게시판
+                    </IsLoggin>
+                </HomeWrapper>
+            )
+        } else  
+            return (
+            <HomeWrapper>
+                <NotLoggin/>
+            </HomeWrapper>
+            )
     }
 }
 

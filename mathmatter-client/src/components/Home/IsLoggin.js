@@ -3,10 +3,14 @@ import styled from 'styled-components';
 import oc from 'open-color';
 import { Link } from 'react-router-dom';
 
+const Button = styled(Link) `
+    color : ${oc.teal[7]};
+    border-radius : 3;
+`;
 
-const isLoggin = ({onClick}) => (
-    <Link to = '/profile' onClick = {onClick}>
-        프로필 메뉴
+const isLoggin = ({to, onClick, children}) => (
+    <Link to = {to} onClick = {onClick}>
+        {children}
     </Link>
 )
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as authActions from '../../redux/modules/auth';
 import * as profileActions from '../../redux/modules/profile';
 
 import queryString from 'query-string';
@@ -68,7 +67,6 @@ export default connect (
         profileInfo : state.profile.get('profileInfo')
     }),
     (dispatch) => ({
-        AuthActions : bindActionCreators(authActions, dispatch),
         ProfileActions : bindActionCreators(profileActions, dispatch)
     })
 
