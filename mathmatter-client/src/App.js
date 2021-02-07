@@ -7,6 +7,7 @@ import storage from './lib/storage';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as profileActions from './redux/modules/profile';
+import * as printActions from './redux/modules/print';
 
 class App extends Component {
 
@@ -14,7 +15,9 @@ class App extends Component {
     const loggedInfo = storage.get('loggedInfo'); //로그인 정보를 로컬 스토리지에서 가져옴
     if(!loggedInfo) return; //로그인되어있지 않으면 중지
 
-    const { ProfileActions } = this.props;
+    const { ProfileActions, PrintActions } = this.props;
+    const myPrintList = storage.get('myPrintList');
+
     await ProfileActions.setLoggedInfo(loggedInfo);
     await ProfileActions.getProfileInfo();
 
@@ -37,7 +40,7 @@ class App extends Component {
           <Route exact path = '/' component = { Home }/>
           <Route path = '/auth' component = { Auth }/>
           <Route path = '/profile' component = { Profile }/>
-          <Route path = '/print' component = { Print } />
+          <Route path = '/print' component = { Print }/>
         </div>
     );
   }
@@ -46,6 +49,7 @@ class App extends Component {
 export default connect(
   null,
   (dispatch) => ({
-    ProfileActions : bindActionCreators(profileActions, dispatch)
+    ProfileActions : bindActionCreators(profileActions, dispatch),
+    PrintActions : bindActionCreators(printActions, dispatch)
   })
 )(App);

@@ -16,9 +16,7 @@ class HomeContainer extends Component {
 
         try {
             await ProfileActions.getProfileInfo();
-  
-            console.log("프로필 함수 불러오기 성공");
-
+            
         }   catch(e) {
             console.log(e);
             this.setError("프로필 정보를 불러오는데 실패했습니다.");
@@ -32,7 +30,7 @@ class HomeContainer extends Component {
         if(logged) {
             return (
                 <HomeWrapper>
-                    <IsLoggin to ='/profile' onClick = {handleGetProfile}>
+                    <IsLoggin to = '/profile' onClick = {handleGetProfile}>
                         프로필메뉴
                     </IsLoggin>
                     <IsLoggin to = '/print'>

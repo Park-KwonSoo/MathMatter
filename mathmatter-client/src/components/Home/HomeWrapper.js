@@ -41,7 +41,7 @@ const HomeWrapper = ({children}) => (
     <Positioner>
         <Shadow>
             <Wrapper>
-                <Name>Menu</Name>
+                <Name>Home</Name>
             </Wrapper>
             <Contents>
                 {children}

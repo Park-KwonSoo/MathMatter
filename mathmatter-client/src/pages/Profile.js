@@ -5,11 +5,11 @@ import { Route } from 'react-router-dom';
 
 class Profile extends Component {
     render() {
-       return(
-        <ProfileWrapper name = {'Profile'}>
-            <Route exact path = '/profile' component = {ProfileInfo}/>
-            <Route path = '/profile/set' component = {ProfileSet}/>
-        </ProfileWrapper>
+       return (
+            <ProfileWrapper name = 'Profile'>
+                <Route exact path = '/profile' component = { ProfileInfo }/>
+                <Route path = '/profile/set' component = { ProfileSet }/>
+            </ProfileWrapper>
        );
     }
 }

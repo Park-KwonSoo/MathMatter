@@ -20,7 +20,7 @@ const initialState = Map({
     type : null,
     error : null,
     resultPrintInfo : Map({}),
-    myPrintList : {}
+    myPrintList : []
 });
 
 export default handleActions({

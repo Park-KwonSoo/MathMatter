@@ -9,6 +9,7 @@ import * as printActions from '../../redux/modules/print';
 import { PrintMenuWrapper, SelectButton } from '../../components/Print';
 
 import queryString from 'query-string';
+import storage from '../../lib/storage';
 
 class PrintMenu extends Component {
 
@@ -19,6 +20,10 @@ class PrintMenu extends Component {
         if(query.expired !== undefined)
             this.setError('세션이 만료되었습니다')
     }
+    
+    componentWillUnmount() {
+
+    }
 
     setErrorProfile = (message) => {
         const { ProfileActions } = this.props;
@@ -28,7 +33,7 @@ class PrintMenu extends Component {
         return false;
     }
 
-    setErrorPrint  = (message) => {
+    setErrorPrint = (message) => {
         const { PrintActions } = this.props;
         PrintActions.setError({
             message
@@ -46,7 +51,7 @@ class PrintMenu extends Component {
             const { PrintActions, myPrintList } = this.props;
             await PrintActions.getPrintList();
 
-            console.log(myPrintList);
+            storage.set('myPrintList', myPrintList);
 
         }   catch(e) {
             console.log(e);
@@ -56,18 +61,18 @@ class PrintMenu extends Component {
     }
 
     render() {
-        const {handleGetPrintList} = this;
+        const { handleGetPrintList } = this;
 
         return (
             <PrintMenuWrapper title = "Menu">
                 <SelectButton to = '/print/set'>문제 생성</SelectButton>
                 <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
             </PrintMenuWrapper>
-        )
+        );
     }
-}
+};
 
-export default connect(
+export default connect (
     (state) => ({
         logged : state.profile.get('logged'),
         error : state.profile.get('error'),

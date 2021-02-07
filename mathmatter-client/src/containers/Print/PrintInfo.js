@@ -11,13 +11,13 @@ import { PrintMenuWrapper, GetPrintContainer } from '../../components/Print';
 class PrintInfo extends Component {
     render() {
         const { myPrintList } = this.props;
-        console.log(myPrintList);
 
         return (
-            <PrintMenuWrapper>
-                <GetPrintContainer></GetPrintContainer>
+            <PrintMenuWrapper title = 'My Print List'>
+                <GetPrintContainer myPrintList = {myPrintList}/>
             </PrintMenuWrapper>
         )
+     
     }
 }
 
