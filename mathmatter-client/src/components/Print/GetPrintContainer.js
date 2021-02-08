@@ -16,7 +16,6 @@ const List = styled(Link) `
 `;
 
 const GetPrintContainer = ({myPrintList}) => (
-
     <div> 
         <Title>문제타입 시험타입 문제수</Title>
         {
