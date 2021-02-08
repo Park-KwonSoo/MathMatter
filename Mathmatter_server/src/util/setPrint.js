@@ -23,7 +23,7 @@ exports.setTypeN = async function(object) {
     
     console.log(questionList);
     const print = {
-        typeOfPrint : 1,
+        typeOfPrint : '내신형',
         typeOfExam,
         numberOfQuestion,
         questionList,
@@ -77,7 +77,7 @@ exports.setTypeS = async function(object) {
     }), 30, 0);
 
     const print = {
-        typeOfPrint : 2,
+        typeOfPrint : '수능형',
         typeOfExam : 3,
         numberOfQuestion : 30,
         questionList,
@@ -93,7 +93,7 @@ exports.setTypeS = async function(object) {
  */
 exports.setTypeT = async function(object) {
     //유형별 문제는 문제수, 문제 유형, 난이도, 그리고 이후 과목을 포함하는가 여부를 받아와서 문제를 설정한다.
-    const { numberOfQuestion, questionType, difficulty, includeMore} = object;
+    const { numberOfQuestion, questionType, difficulty, includeMore } = object;
 
     let questionList;
     //만약 받아온다면, questionType이 있는 모든 문제들을 받아와서 출력한다.
@@ -106,13 +106,13 @@ exports.setTypeT = async function(object) {
         //questionType이 최대가 되고 그 값을 포함 하는 문제들을 받아온다.
         questionList = await setRandomQuestion(await Question.find({
             $and :
-            [{ questiontype : { $not : { $gt : questionType }}},
-            { questiontype : questionType }]
+            [{ questionType : { $not : { $gt : questionType }}},
+            { questionType : questionType }]
         }), numberOfQuestion, difficulty);
     }
     
     const print = {
-        typeOfPrint : 3,
+        typeOfPrint : '유형별',
         typeOfExam : 0,
         numberOfQuestion,
         questionList,
