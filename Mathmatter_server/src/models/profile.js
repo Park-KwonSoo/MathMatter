@@ -42,14 +42,21 @@ ProfileSchema.methods.getWriteList = function() {
 };
 
 ProfileSchema.methods.deleteWrite = function(_id) {
-    let i = 0;
-    for(i = 0; i < this.writeList.length; i++){
-        if(this.writeList[i]._id.equals(_id)) {
+    let i;
+    for(i = 0; i < this.writeList.length; i++)
+        if(this.writeList[i]._id.equals(_id)) 
             break;
-        }
-    }
 
     this.writeList.splice(i, 1);
+};
+
+ProfileSchema.methods.havePrint = function(_id) {
+    let i;
+    for(i = 0; i < this.printList.length; i++) 
+        if(this.printList[i]._id.equals(_id)) 
+            return true;
+    
+    return false;
 };
 
 module.exports = mongoose.model("Profile", ProfileSchema);

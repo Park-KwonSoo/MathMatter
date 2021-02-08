@@ -78,3 +78,35 @@ exports.setPrint = async (ctx, next) => {
 exports.printing = async (ctx) => {
     //구현 필수
 };
+
+/**
+ * GET Print Info
+ * for Read Log
+ */
+exports.readPrint = async (ctx) => {
+    //로그인한 유저의 정보를 받아오는 토큰
+    const token = ctx.cookies.get('access_token');
+
+    if(!token)
+        return;
+
+    try { 
+        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const profile = await Profile.findByUserId(userId);
+
+        const { printId } = ctx.params;
+
+        const userHavePrint = await profile.havePrint(printId);
+        if(!userHavePrint) {
+            ctx.status = 401;
+            return;
+        }
+
+        const print = await Print.findById(printId);
+
+        ctx.body = print;
+
+    } catch(e) {
+        ctx.throw(500, e);
+    }
+}
