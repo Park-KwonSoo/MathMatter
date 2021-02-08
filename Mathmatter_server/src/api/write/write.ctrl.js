@@ -54,25 +54,36 @@ exports.replying = async (ctx) => {
 }
 
 /**
+ * GET  all Writing
+ */
+exports.seeAllWriting = async (ctx) => {
+    const token = ctx.cookies.get('access_token');
+    if(!token)  return;
+
+    try {
+        const allWriting = await Write.find().sort({ 'postId' : -1 });
+        
+        ctx.body = allWriting;
+
+    }   catch(e) {
+        ctx.throw(500, e);
+    }
+}
+
+/**
  *  GET     Writing
  */
 exports.seeWriting = async (ctx) => {
-    const { postId } = ctx.params;
-
     //로그인한 사용자만 글을 읽을 수 있다.
     const token = ctx.cookies.get('access_token');
     if(!token) return;
     
     //postID를 가진 글을 읽는다.
     try {
+        const { postId } = ctx.params;
         const write = await Write.findByPostId(postId);
 
-        ctx.body = {
-            postID : postId,
-            userID : write.userId,
-            title : write.title,
-            body : write.body,
-        }
+        ctx.body = write;
     } catch(e) {
         ctx.status = 500;
         return;
