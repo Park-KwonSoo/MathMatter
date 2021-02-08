@@ -7,14 +7,14 @@ const Schema = mongoose.Schema;
 const ReplySchema = new Schema ({
     userId : { type : String, required : true },
     body : String,
-    date : Date,
+    date : { type : Date, default : Date.now, required : true },
 });
 
 const WriteSchema = new Schema ({
     userId : { type : String, required : true},
     postId : Number,
     title : { type : String, required : true },
-    date : { type : Date, default : Date.now},
+    date : { type : Date, default : Date.now, required : true },
     body : { type : String, required : true },
     comments : [ReplySchema]
 });
