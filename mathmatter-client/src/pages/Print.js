@@ -9,7 +9,7 @@ class Print extends Component {
                 <Route exact path = '/print' component = { PrintMenu }/>
                 <Route path = '/print/info' component = { PrintInfo }/>
                 <Route path = '/print/set' component = { PrintSet }/>
-                <Route path = '/print/result' component = { PrintResult }/>
+                <Route path = '/print/result/:printId' component = { PrintResult }/>
             </div>
         );
     }

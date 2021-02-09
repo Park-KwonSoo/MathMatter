@@ -8,13 +8,15 @@ const INITIALIZE_PRINT = 'print/INITIALIZE_PRINT';
 const SET_PRINT_TYPE = 'print/SET_PRINT_TYPE';
 const SET_PRINT = 'print/SET_PRINT';
 const SET_ERROR = 'print/SET_ERROR';
-const GET_PRINT_LIST = 'print/SET_PRINT_LIST';
+const GET_PRINT_LIST = 'print/GET_PRINT_LIST';
+const GET_PRINT_DETAIL = 'print/GET_PRINT_DETAIL';
 
 export const initializePrint = createAction(INITIALIZE_PRINT);
 export const setPrintType = createAction(SET_PRINT_TYPE);
 export const setPrint = createAction(SET_PRINT, printAPI.setPrint);
 export const setError = createAction(SET_ERROR);
 export const getPrintList = createAction(GET_PRINT_LIST, printAPI.getPrintList);
+export const getPrintDetail = createAction(GET_PRINT_DETAIL, printAPI.getPrintDetail);
 
 const initialState = Map({
     type : null,
@@ -32,10 +34,14 @@ export default handleActions({
     },
     ...pender({
         type : SET_PRINT,
-        onSuccess : (state, action) => state.set('resultPrintInfo', action.payload.data)
+        onSuccess : (state, action) => state.set('resultPrintInfo', Map(action.payload.data))
     }),
     ...pender({
         type : GET_PRINT_LIST,
         onSuccess : (state, action) => state.set('myPrintList', action.payload.data)
+    }),
+    ...pender({
+        type : GET_PRINT_DETAIL,
+        onSuccess : (state, action) => state.set('resultPrintInfo', Map(action.payload.data))
     })
 }, initialState);

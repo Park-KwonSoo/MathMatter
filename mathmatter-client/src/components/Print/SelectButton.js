@@ -31,6 +31,12 @@ const Button = styled.button `
     & + & {
         margin-left : 3rem;
     }
+
+    &:hover{
+        background : ${oc.teal[5]};
+        color : white;
+        ${shadow[1]};
+    }
 `;
 
 const SelectButton = ({to, onClick, children}) => (

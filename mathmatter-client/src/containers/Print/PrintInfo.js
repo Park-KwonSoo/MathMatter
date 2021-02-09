@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
-import { PrintMenuWrapper, GetPrintContainer } from '../../components/Print';
+import { PrintMenuWrapper, GetPrintInfo } from '../../components/Print';
 
 class PrintInfo extends Component {
     render() {
@@ -14,7 +14,7 @@ class PrintInfo extends Component {
 
         return (
             <PrintMenuWrapper title = 'My Print List'>
-                <GetPrintContainer myPrintList = {myPrintList}/>
+                <GetPrintInfo myPrintList = {myPrintList}/>
             </PrintMenuWrapper>
         )
      

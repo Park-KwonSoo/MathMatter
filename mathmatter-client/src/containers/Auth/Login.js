@@ -28,7 +28,6 @@ class Login extends Component {
         const { AuthActions } = this.props;
         const { name, value } = e.target;
 
-
         AuthActions.changeInput({
             name,
             value,

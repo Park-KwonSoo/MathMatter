@@ -7,6 +7,7 @@ import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
 import { PrintMenuWrapper, SelectButton } from '../../components/Print';
+import { Error } from '../../components/Base';
 
 import queryString from 'query-string';
 import storage from '../../lib/storage';
@@ -18,11 +19,12 @@ class PrintMenu extends Component {
         const query = queryString.parse(location.search);
 
         if(query.expired !== undefined)
-            this.setError('세션이 만료되었습니다')
+            this.setErrorProfile('세션이 만료되었습니다')
     }
     
     componentWillUnmount() {
-
+        this.setErrorProfile(null);
+        this.setErrorPrint(null);
     }
 
     setErrorProfile = (message) => {
@@ -61,12 +63,16 @@ class PrintMenu extends Component {
     }
 
     render() {
+        const { error } = this.props;
         const { handleGetPrintList } = this;
 
         return (
             <PrintMenuWrapper title = "Menu">
                 <SelectButton to = '/print/set'>문제 생성</SelectButton>
                 <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
+                {
+                    error && <Error>{error}</Error>
+                }
             </PrintMenuWrapper>
         );
     }

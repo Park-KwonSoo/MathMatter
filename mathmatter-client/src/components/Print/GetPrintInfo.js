@@ -6,24 +6,23 @@ import { Link } from 'react-router-dom';
 
 const Title = styled.div `
     font-family : Raleway;
-    letter-spacing : 1px;
+    letter-spacing : 1.5px;
+    font-size : 1.5 rem;
 `;
 
 const List = styled(Link) `
     color : ${oc.teal[7]};
     text-decoration : none;
-    font-size : 1.5rem;
 `;
 
 const GetPrintContainer = ({myPrintList}) => (
     <div> 
-        <Title>문제타입 시험타입 문제수</Title>
         {
         myPrintList.map((myList) => {
         return (
             <li key = {myList._id}>
-                <List to = {myList._id}>
-                    {myList.typeOfPrint}    {myList.typeOfExam} {myList.numberOfQuestion}
+                <List to = {'/print/result/' + myList._id}>
+                    {myList.typeOfPrint}    {myList.typeOfExam} {myList.numberOfQuestion}   {myList.createdDate}
                 </List>
             </li>
         )

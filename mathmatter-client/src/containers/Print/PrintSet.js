@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as profileActions from '../../redux/modules/profile';
-import * as printActions from '../../redux/modules/print';
 
 import { PrintMenuWrapper, SelectButton } from '../../components/Print';
 
@@ -18,6 +17,10 @@ class PrintSet extends Component {
 
         if(query.expired !== undefined)
             this.setError('세션이 만료되었습니다')
+    }
+
+    componentWillUnmount() {
+        this.setError(null);
     }
 
     setError = (message) => {
@@ -42,6 +45,7 @@ class PrintSet extends Component {
 export default connect (
     (state) => ({
         logged : state.profile.get('logged'),
+        error : state.profile.get('error')
     }),
     (dispatch) => ({
         ProfileActions : bindActionCreators(profileActions, dispatch),
