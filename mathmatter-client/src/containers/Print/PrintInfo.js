@@ -7,8 +7,14 @@ import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
 import { PrintMenuWrapper, GetPrintInfo } from '../../components/Print';
+import storage from '../../lib/storage';
 
 class PrintInfo extends Component {
+
+    componentWillUnmount() {
+        storage.set('myPrintList', this.props.myPrintList);
+    }
+
     render() {
         const { myPrintList } = this.props;
 

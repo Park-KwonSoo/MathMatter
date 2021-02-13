@@ -26,7 +26,7 @@ const NameWrapper = styled.div`
 const Name = styled.div`
     color : white;
     font-family : Raleway;
-    font-size : 2.4rem;
+    font-size : 1.7rem;
     letter-spacing : 5px;
     text-decoration : none;
 `;  

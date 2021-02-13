@@ -20,6 +20,7 @@ class App extends Component {
 
     await ProfileActions.setLoggedInfo(loggedInfo);
     await ProfileActions.getProfileInfo();
+    await PrintActions.setMyPrintListInfo(myPrintList);
 
     try {
       await ProfileActions.checkStatus();

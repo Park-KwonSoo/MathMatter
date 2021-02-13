@@ -10,7 +10,6 @@ import { PrintMenuWrapper, SelectButton } from '../../components/Print';
 import { Error } from '../../components/Base';
 
 import queryString from 'query-string';
-import storage from '../../lib/storage';
 
 class PrintMenu extends Component {
 
@@ -44,16 +43,12 @@ class PrintMenu extends Component {
     }
 
     handleGetPrintList = async() => {
-        const { logged } = this.props;
+        const { logged, PrintActions } = this.props;
         if(!logged)
             this.setErrorProfile('먼저 로그인을 해야합니다.')
-        
 
         try {
-            const { PrintActions, myPrintList } = this.props;
             await PrintActions.getPrintList();
-
-            storage.set('myPrintList', myPrintList);
 
         }   catch(e) {
             console.log(e);

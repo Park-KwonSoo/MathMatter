@@ -10,6 +10,7 @@ const SET_PRINT = 'print/SET_PRINT';
 const SET_ERROR = 'print/SET_ERROR';
 const GET_PRINT_LIST = 'print/GET_PRINT_LIST';
 const GET_PRINT_DETAIL = 'print/GET_PRINT_DETAIL';
+const SET_MY_PRINT_LIST_INFO = 'print/SET_MY_PRINT_LIST_INFO';
 
 export const initializePrint = createAction(INITIALIZE_PRINT);
 export const setPrintType = createAction(SET_PRINT_TYPE);
@@ -17,6 +18,7 @@ export const setPrint = createAction(SET_PRINT, printAPI.setPrint);
 export const setError = createAction(SET_ERROR);
 export const getPrintList = createAction(GET_PRINT_LIST, printAPI.getPrintList);
 export const getPrintDetail = createAction(GET_PRINT_DETAIL, printAPI.getPrintDetail);
+export const setMyPrintListInfo = createAction(SET_MY_PRINT_LIST_INFO);
 
 const initialState = Map({
     type : null,
@@ -32,6 +34,7 @@ export default handleActions({
         const { message } = action.payload;
         state.set('error', message);
     },
+    [SET_MY_PRINT_LIST_INFO] : (state, action) => state.set('myPrintList', action.payload),
     ...pender({
         type : SET_PRINT,
         onSuccess : (state, action) => state.set('resultPrintInfo', Map(action.payload.data))
