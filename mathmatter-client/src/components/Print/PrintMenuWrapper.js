@@ -29,7 +29,6 @@ const LocationCenter = styled.div `
 
 const LocationLeft = styled.div `
     flex : 1;
-    margin-left : 1rem;
 `;
 
 const LocationRight = styled.div `
@@ -46,6 +45,7 @@ const BackButton = styled.button `
 
     font-family :Raleway;
 
+    margin-left : 1rem;
     height : 2.5rem;
 
     &:hover {
@@ -68,9 +68,6 @@ const Title = styled.div `
 const Contents = styled.div `
     background : white;
     padding : 3rem;
-    display : flex;
-    align-items : center;
-    justify-content : center;
 `;
 
 const PrintMenuWrapper = ({title, children, onClick}) => (

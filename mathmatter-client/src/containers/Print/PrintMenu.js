@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
-import { PrintMenuWrapper } from '../../components/Print';
+import { PrintMenuWrapper, Contents } from '../../components/Print';
 import { Error, SelectButton } from '../../components/Base';
 
 import queryString from 'query-string';
@@ -63,16 +63,25 @@ class PrintMenu extends Component {
     }
 
     render() {
-        const { error } = this.props;
+        const { errorProfile, errorPrint } = this.props;
         const { handleGetPrintList, handleGoBack } = this;
 
         return (
             <PrintMenuWrapper title = "Print" onClick = {handleGoBack}>
-                <SelectButton to = '/print/set'>문제 생성</SelectButton>
-                <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
+                <Contents>
+                    <SelectButton to = '/print/set'>문제 생성</SelectButton>
+                    <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
+                </Contents>
+                <Contents>
                 {
-                    error && <Error>{error}</Error>
+                        errorProfile && <Error>{errorProfile}</Error>
                 }
+                </Contents>
+                <Contents>
+                {
+                        errorPrint && <Error>{errorPrint}</Error>
+                }
+                </Contents>
             </PrintMenuWrapper>
         );
     }
@@ -81,7 +90,8 @@ class PrintMenu extends Component {
 export default connect (
     (state) => ({
         logged : state.profile.get('logged'),
-        error : state.profile.get('error'),
+        errorProfile : state.profile.get('error'),
+        errorPrint : state.print.get('error'),
         myPrintList : state.print.get('myPrintList')
     }),
     (dispatch) => ({

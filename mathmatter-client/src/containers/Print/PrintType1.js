@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as printActions from '../../redux/modules/print';
 import * as profileActions from '../../redux/modules/profile';
 
-import { PrintMenuWrapper, PrintInputWrapper, PrintInput, SaveButton } from '../../components/Print';
+import { PrintMenuWrapper, PrintInputWrapper, PrintInput, SaveButton, Contents, Range } from '../../components/Print';
 import { Error } from '../../components/Base';
 
 import storage from '../../lib/storage';
@@ -133,33 +133,37 @@ class PrintType1 extends Component {
 
         return (
             <PrintMenuWrapper title = '내신형 문제 설정' onClick = {handleGoBack}>
-                <PrintInputWrapper>
-                    <PrintInput name = 'semester'
-                    type = 'number'
-                    onChange = {handleChange}
-                    placeholder = '학기'/>
-                    <PrintInput name = 'typeOfExam'
-                    type = 'number'
-                    onChange = {handleChange}
-                    placeholder = '시험 유형'/>
-                    <PrintInput name = 'numberOfQuestion'
-                    type = 'number'
-                    onChange = {handleChange}
-                    placeholder = '문제 수'/>
-                    <PrintInput name = 'difficulty'
-                    type = 'number'
-                    onChange = {handleChange}
-                    placeholder = '난이도'/>
-                </PrintInputWrapper>
-                <PrintInputWrapper>
-                    <SaveButton onClick = {handleSetPrint}/>
+                <Contents>
+                    <PrintInputWrapper>
+                        <PrintInput name = 'semester'
+                        type = 'number'
+                        onChange = {handleChange}
+                        placeholder = '학기'/>
+                        <PrintInput name = 'typeOfExam'
+                        type = 'number'
+                        onChange = {handleChange}
+                        placeholder = '시험 유형'/>
+                        <PrintInput name = 'numberOfQuestion'
+                        type = 'number'
+                        onChange = {handleChange}
+                        placeholder = '문제 수'/>
+                        <Range name = 'difficulty'
+                        onChange = {handleChange}>난이도</Range>
+                    </PrintInputWrapper>
+                    <PrintInputWrapper>
+                        <SaveButton onClick = {handleSetPrint}/>
+                    </PrintInputWrapper>
+                </Contents>
+                <Contents>
                     {
                         errorProfile && <Error>{errorProfile}</Error>
                     }
+                </Contents>
+                <Contents>
                     {
                         errorPrint && <Error>{errorPrint}</Error>
                     }
-                </PrintInputWrapper>
+                </Contents>
             </PrintMenuWrapper>
         );
     }

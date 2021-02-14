@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as printActions from '../../redux/modules/print';
 import * as profileActions from '../../redux/modules/profile';
 
-import { PrintMenuWrapper, PrintInputWrapper, PrintInput, SaveButton } from '../../components/Print';
+import { PrintMenuWrapper, PrintInputWrapper, PrintInput, SaveButton, Contents } from '../../components/Print';
 import { Error } from '../../components/Base';
 
 import storage from '../../lib/storage';
@@ -103,21 +103,27 @@ class PrintType2 extends Component {
 
         return (
             <PrintMenuWrapper title = '수능형 문제 설정' onClick = {handleGoBack}>
-                <PrintInputWrapper>
-                    <PrintInput name = 'month'
-                    type = 'number'
-                    placeholder = 'Month'
-                    onChange = {handleChange}/>
-                </PrintInputWrapper>
-                <PrintInputWrapper>
-                    <SaveButton onClick = {handleSetPrint}/>
+                <Contents>
+                    <PrintInputWrapper>
+                        <PrintInput name = 'month'
+                        type = 'number'
+                        placeholder = 'Month'
+                        onChange = {handleChange}/>
+                    </PrintInputWrapper>
+                    <PrintInputWrapper>
+                        <SaveButton onClick = {handleSetPrint}/>
+                    </PrintInputWrapper>
+                </Contents>
+                <Contents>
                     {
                         errorProfile && <Error>{errorProfile}</Error>
                     }
+                </Contents>
+                <Contents>
                     {
                         errorPrint && <Error>{errorPrint}</Error>
                     }
-                </PrintInputWrapper>
+                </Contents>
             </PrintMenuWrapper>
         );
     }

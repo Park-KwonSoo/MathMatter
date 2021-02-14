@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 
 import * as profileActions from '../../redux/modules/profile';
 
-import { PrintMenuWrapper } from '../../components/Print';
-import { SelectButton } from '../../components/Base';
+import { Contents, PrintMenuWrapper } from '../../components/Print';
+import { SelectButton, Error } from '../../components/Base';
 
 import queryString from 'query-string';
 
@@ -38,13 +38,21 @@ class PrintSet extends Component {
     }
 
     render() {
+        const { error } = this.props;
         const { handleGoBack } = this;
 
         return (
             <PrintMenuWrapper title = 'Select Type' onClick = {handleGoBack}>
-                <SelectButton to = '/print/set/1'>내신형</SelectButton>
-                <SelectButton to = '/print/set/2'>수능형</SelectButton>
-                <SelectButton to = '/print/set/3'>유형별</SelectButton>
+                <Contents>
+                    <SelectButton to = '/print/set/1'>내신형</SelectButton>
+                    <SelectButton to = '/print/set/2'>수능형</SelectButton>
+                    <SelectButton to = '/print/set/3'>유형별</SelectButton>
+                </Contents>
+                <Contents>
+                    {
+                        error && <Error>{error}</Error>
+                    }
+                </Contents>
             </PrintMenuWrapper>
         )
     }

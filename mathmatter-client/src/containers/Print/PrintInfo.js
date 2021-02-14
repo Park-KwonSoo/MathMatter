@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
-import { PrintMenuWrapper, GetPrintInfo } from '../../components/Print';
+import { PrintMenuWrapper, GetPrintInfo, Contents } from '../../components/Print';
 import { Error } from '../../components/Base';
 
 import storage from '../../lib/storage';
@@ -42,10 +42,14 @@ class PrintInfo extends Component {
 
         return (
             <PrintMenuWrapper title = 'My Print List' onClick = {handleGoBack}>
-                <GetPrintInfo myPrintList = {myPrintList}/>
+                <Contents>
+                    <GetPrintInfo myPrintList = {myPrintList}/>
+                </Contents>
+                <Contents>
                 {
                     error && <Error>{error}</Error>
                 }
+                </Contents>
             </PrintMenuWrapper>
         )
      

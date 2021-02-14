@@ -9,6 +9,16 @@ import { SelectButton } from '../../components/Base';
 
 class HomeContainer extends Component {
 
+    setError = (message) => {
+        const { ProfileActions } = this.props;
+
+        ProfileActions.setError({
+            message
+        });
+
+        return false;
+    }
+
     handleGetProfile = async() => {
         const { logged, ProfileActions } = this.props;
         
@@ -54,6 +64,7 @@ class HomeContainer extends Component {
 export default connect (
     (state) => ({
         logged : state.profile.get('logged'),
+        error : state.profile.get('error'),
         profileInfo : state.profile.get('profileInfo')
     }),
     (dispatch) => ({

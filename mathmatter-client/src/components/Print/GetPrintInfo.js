@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom';
 const Title = styled.div `
     font-family : Raleway;
     letter-spacing : 1.5px;
-    font-size : 1.5 rem;
+    font-size : 1.5rem;
+`;
+
+const Li = styled.li `
 `;
 
 const List = styled(Link) `
@@ -21,11 +24,11 @@ const GetPrintInfo = ({myPrintList}) => (
         {
         myPrintList.map((myList) => {
         return (
-            <li key = {myList._id}>
+            <Li key = {myList._id}>
                 <List to = {'/print/result/' + myList._id}>
                     {myList.typeOfPrint}    {myList.typeOfExam} {myList.numberOfQuestion}   {myList.createdDate}
                 </List>
-            </li>
+            </Li>
         )
     })}
     </div>

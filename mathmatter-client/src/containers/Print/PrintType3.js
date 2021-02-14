@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
-import { PrintMenuWrapper, PrintInputWrapper, PrintInput, SaveButton, Radio } from '../../components/Print';
+import { PrintMenuWrapper, PrintInputWrapper, PrintInput, SaveButton, Contents, Radio, Range } from '../../components/Print';
 import { Error } from '../../components/Base';
 
 import storage from '../../lib/storage';
@@ -126,35 +126,39 @@ class PrintType3 extends Component {
 
         return (
             <PrintMenuWrapper title = '유형별 문제 설정' onClick = {handleGoBack}>
-                <PrintInputWrapper>
-                    <PrintInput name = 'numberOfQuestion'
-                    type = 'number'
-                    placeholder = '문제 수'
-                    onChange = {handleChange}/>
-                    <PrintInput name = 'questionType'
-                    type = 'number'
-                    placeholder = '문제 유형'
-                    onChange = {handleChange}/>
-                    <PrintInput name = 'difficulty'
-                    type = 'number'
-                    placeholder = '난이도'
-                    onChange = {handleChange}/>
-                    <Radio name = 'includeMore'
-                    value = {true}
-                    onChange = {handleChange}>포함</Radio>
-                    <Radio name = 'includeMore'
-                    value = {false}
-                    onChange = {handleChange}>미포함</Radio>
-                </PrintInputWrapper>
-                <PrintInputWrapper>
-                    <SaveButton onClick = {handleSetPrint}/>
+                <Contents>
+                    <PrintInputWrapper>
+                        <PrintInput name = 'numberOfQuestion'
+                        type = 'number'
+                        placeholder = '문제 수'
+                        onChange = {handleChange}/>
+                        <PrintInput name = 'questionType'
+                        type = 'number'
+                        placeholder = '문제 유형'
+                        onChange = {handleChange}/>
+                        <Range name = 'difficulty'
+                        onChange = {handleChange}>난이도</Range>
+                        <Radio name = 'includeMore'
+                        value = {true}
+                        onChange = {handleChange}>포함</Radio>
+                        <Radio name = 'includeMore'
+                        value = {false}
+                        onChange = {handleChange}>미포함</Radio>
+                    </PrintInputWrapper>
+                    <PrintInputWrapper>
+                        <SaveButton onClick = {handleSetPrint}/>
+                    </PrintInputWrapper>
+                </Contents>
+                <Contents>
                     {
                         errorProfile && <Error>{errorProfile}</Error>
-                    }
+                    }   
+                </Contents>
+                <Contents>
                     {
                         errorPrint && <Error>{errorPrint}</Error>
                     }
-                </PrintInputWrapper>
+                </Contents>
             </PrintMenuWrapper>
         );
     }

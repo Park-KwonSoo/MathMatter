@@ -32,9 +32,7 @@ const Button = styled.button `
 `;
 
 const SaveButton = ({onClick}) => (
-    <Button onClick = {onClick}>
-        생성
-    </Button>
+    <Button onClick = {onClick}>생성</Button>
 );
 
 export default SaveButton;
