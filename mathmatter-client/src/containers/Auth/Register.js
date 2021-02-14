@@ -99,9 +99,6 @@ class Register extends Component {
                 userId, email, password
             });
 
-            const loggedInfo = this.props.result.toJS();
-            console.log(loggedInfo);
-
             history.push('/');
 
         }   catch(e) {
