@@ -22,7 +22,6 @@ exports.setTypeN = async function(object) {
             subject
         }), numberOfQuestion, difficulty);
         
-        console.log(questionList);
         const print = {
             typeOfPrint : '내신형',
             typeOfExam,
@@ -236,8 +235,6 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
 
         isNotExist = true;
     }
-    console.log(result);
-
     
      //dif3_list
     random = Math.floor(Math.random() * dif3_list.length);
@@ -259,7 +256,6 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
         }
          isNotExist = true;
     }
-    console.log(result);
 
       //dif4_list
       random = Math.floor(Math.random() * dif4_list.length);
@@ -282,7 +278,6 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
 
           isNotExist = true;
       }
-      console.log(result);
 
     return result;
 }
