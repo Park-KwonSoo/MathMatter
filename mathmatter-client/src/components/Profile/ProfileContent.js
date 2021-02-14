@@ -14,6 +14,6 @@ const ProfileContent = ({title, children}) => (
         <Title>{title}</Title>
         {children}
     </div>
-)
+);
 
 export default ProfileContent;

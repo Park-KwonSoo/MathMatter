@@ -5,23 +5,29 @@ import oc from 'open-color';
 const Wrapper  = styled.div `
     & + & {
         margin-top : 0.5rem;
+        margin-bottom : 0.5rem;
     }
 `;
 
-const Label = styled.div `
+const Input = styled.input `
     font-family : Raleway;
     font-size : 1rem;
-    font-weight : 500px;
+    
+    border : 1px solid ${oc.gray[5]};
+    border-radius : 3px;
 
-`;
+    outline : none;
 
-const Input = styled.input `
-    display : auto;
+    width : 70%;
+    padding : 0.5rem 1rem;
+
+    ::placeholder {
+        color : ${oc.gray[4]};
+    }
 `;
 
 const PrintInput = ({children, ...rest}) => (
     <Wrapper>
-        <Label>{children}</Label>
         <Input {...rest}/>
     </Wrapper>
 );

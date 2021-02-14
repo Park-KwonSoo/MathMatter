@@ -34,7 +34,7 @@ class HomeContainer extends Component {
                         프로필메뉴
                     </IsLoggin>
                     <IsLoggin to = '/print'>
-                        프린트목록
+                        프린트메뉴
                     </IsLoggin>
                     <IsLoggin to = '/write'>
                         게시판

@@ -15,7 +15,7 @@ const LinkWrapper = styled(Link) `
 const Button = styled.button `
     color : white;
     background : ${oc.teal[7]};
-    border-radius : 3px;
+    border-radius : 10px;
     padding : 0rem 1rem;
     cursor : pointer;
     border : 3px solid;

@@ -12,6 +12,7 @@ import { Error } from '../../components/Base';
 
 class PrintResult extends Component {
 
+    //to Do : 새로고침시 정보를 불러올 수 없음
     componentDidMount() {
         const { match } = this.props;
         this.handleGetPrintDetail(match.params.printId);
@@ -41,7 +42,7 @@ class PrintResult extends Component {
         }
     }
 
-    handleGoBack = async() => {
+    handleGoBack = () => {
         const { history } = this.props;
         history.push('/print/info');
     }
@@ -54,9 +55,9 @@ class PrintResult extends Component {
         return(
             <PrintMenuWrapper title = "Print Information" onClick = {handleGoBack}>
                 <PrintInfoDetail result = {questionList}/>
-            {
-                error && <Error>{error}</Error>
-            }
+                {
+                    error && <Error>{error}</Error>
+                }
             </PrintMenuWrapper>
         )
     }

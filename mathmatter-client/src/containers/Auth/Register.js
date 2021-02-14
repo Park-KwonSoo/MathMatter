@@ -14,7 +14,7 @@ class Register extends Component {
         AuthActions.setError({
             form : 'register',
             message
-        })
+        });
     }
 
     validate = {
@@ -23,6 +23,7 @@ class Register extends Component {
                 this.setError("올바른 이메일 주소를 입력해주세요.");
                 return false;
             }
+            this.setError(null);
             return true;
         },
         userId : (value) => {
@@ -30,13 +31,14 @@ class Register extends Component {
                 this.setError("아이디는 5~15 글자의 알파벳 혹은 숫자로 이루어져야 합니다.");
                 return false;
             }
+            this.setError(null);
             return true;
         },
         password : (value) => {
             if(!isLength(value, { min : 8 })) {
                 this.setError("비밀번호를 8자 이상 입력하세요.");
                 return false;
-            }   
+            }
             this.setError(null);
             return true;
         },

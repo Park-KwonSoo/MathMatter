@@ -31,7 +31,7 @@ class PrintSet extends Component {
         return false;
     }
 
-    handleGoBack = async() => {
+    handleGoBack = () => {
         const { history } = this.props;
         history.push('/print')
     }

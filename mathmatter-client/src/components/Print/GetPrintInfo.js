@@ -15,8 +15,9 @@ const List = styled(Link) `
     text-decoration : none;
 `;
 
-const GetPrintContainer = ({myPrintList}) => (
-    <div> 
+const GetPrintInfo = ({myPrintList}) => (
+    <div>
+        <Title></Title>
         {
         myPrintList.map((myList) => {
         return (
@@ -30,4 +31,4 @@ const GetPrintContainer = ({myPrintList}) => (
     </div>
 );
 
-export default GetPrintContainer;
+export default GetPrintInfo;

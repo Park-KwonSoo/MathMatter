@@ -4,7 +4,7 @@ import { pender } from 'redux-pender';
 
 import * as printAPI from '../../lib/api/print';
 
-const INITIALIZE_PRINT = 'print/INITIALIZE_PRINT';
+const INITIALIZE_MAKE_PRINT = 'print/INITIALIZE_MAKE_PRINT';
 const MAKE_PRINT = 'print/MAKE_PRINT';
 const SET_PRINT = 'print/SET_PRINT';
 const SET_ERROR = 'print/SET_ERROR';
@@ -12,7 +12,7 @@ const GET_PRINT_LIST = 'print/GET_PRINT_LIST';
 const GET_PRINT_DETAIL = 'print/GET_PRINT_DETAIL';
 const SET_MY_PRINT_LIST_INFO = 'print/SET_MY_PRINT_LIST_INFO';
 
-export const initializePrint = createAction(INITIALIZE_PRINT);
+export const initializeMakePrint = createAction(INITIALIZE_MAKE_PRINT);
 export const makePrint = createAction(MAKE_PRINT);
 export const setPrint = createAction(SET_PRINT, printAPI.setPrint);
 export const setError = createAction(SET_ERROR);
@@ -23,12 +23,12 @@ export const setMyPrintListInfo = createAction(SET_MY_PRINT_LIST_INFO);
 const initialState = Map({
     error : null,
     makeInfo : Map({
-        semester : {type : Number},
+        semester : Number,
         typeOfExam : Number,
         numberOfQuestion : Number,
         difficulty : Number,
-        typeOfPrint : String,
         questionType : Number,
+        month : Number,
         includeMore : false,
     }),
     resultPrintInfo : Map({}),
@@ -36,14 +36,14 @@ const initialState = Map({
 });
 
 export default handleActions({
-    [INITIALIZE_PRINT] : (state) => state.set(initialState),
+    [INITIALIZE_MAKE_PRINT] : (state) => state.set('makeInfo', initialState),
     [MAKE_PRINT] : (state, action) => {
         const { name, value } = action.payload;
         return state.setIn(['makeInfo', name], value);
     },
     [SET_ERROR] : (state, action) => {
         const { message } = action.payload;
-        state.set('error', message);
+        return state.set('error', message);
     },
     [SET_MY_PRINT_LIST_INFO] : (state, action) => state.set('myPrintList', action.payload),
     ...pender({

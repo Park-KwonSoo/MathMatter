@@ -35,6 +35,10 @@ const Contents = styled.div `
     background : white;
     padding : 2rem;
     height : auto;
+
+    display : flex;
+    align-itmes : center;
+    justify-content : center;
 `;
 
 const HomeWrapper = ({children}) => (
@@ -48,6 +52,6 @@ const HomeWrapper = ({children}) => (
             </Contents>
         </Shadow>
     </Positioner>
-)
+);
 
 export default HomeWrapper;

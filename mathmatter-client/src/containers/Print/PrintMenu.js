@@ -57,9 +57,8 @@ class PrintMenu extends Component {
 
     }
 
-    handleGoBack = async() => {
+    handleGoBack = () => {
         const { history } = this.props;
-
         history.push('/');
     }
 

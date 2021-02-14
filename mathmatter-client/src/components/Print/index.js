@@ -5,3 +5,4 @@ export { default as PrintInfoDetail } from './PrintInfoDetail';
 export { default as PrintInput } from './PrintInput';
 export { default as SaveButton } from './SaveButton';
 export { default as PrintInputWrapper } from './PrintInputWrapper';
+export { default as Radio } from './Radio';
