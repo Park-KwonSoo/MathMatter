@@ -15,11 +15,18 @@ class PrintInfo extends Component {
         storage.set('myPrintList', this.props.myPrintList);
     }
 
+    handleGoBack = async() => {
+        const { history } = this.props;
+        
+        history.push('/print');
+    }
+
     render() {
         const { myPrintList } = this.props;
+        const {handleGoBack} = this;
 
         return (
-            <PrintMenuWrapper title = 'My Print List'>
+            <PrintMenuWrapper title = 'My Print List' onClick = {handleGoBack}>
                 <GetPrintInfo myPrintList = {myPrintList}/>
             </PrintMenuWrapper>
         )

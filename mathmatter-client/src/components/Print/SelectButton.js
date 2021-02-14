@@ -28,10 +28,6 @@ const Button = styled.button `
     height : 10rem;
     ${shadow[2]};
 
-    & + & {
-        margin-left : 3rem;
-    }
-
     &:hover{
         background : ${oc.teal[5]};
         color : white;

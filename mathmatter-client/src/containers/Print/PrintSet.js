@@ -31,9 +31,16 @@ class PrintSet extends Component {
         return false;
     }
 
+    handleGoBack = async() => {
+        const { history } = this.props;
+        history.push('/print')
+    }
+
     render() {
+        const { handleGoBack } = this;
+
         return (
-            <PrintMenuWrapper title = 'Select Type'>
+            <PrintMenuWrapper title = 'Select Type' onClick = {handleGoBack}>
                 <SelectButton to = '/print/set/1'>내신형</SelectButton>
                 <SelectButton to = '/print/set/2'>수능형</SelectButton>
                 <SelectButton to = '/print/set/3'>유형별</SelectButton>

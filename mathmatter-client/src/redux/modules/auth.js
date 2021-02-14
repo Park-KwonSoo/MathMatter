@@ -63,7 +63,7 @@ const initialState = Map({
 export default handleActions({
     [CHANGE_INPUT] : (state, action) => {
         const { form, name, value } = action.payload;
-        return state.setIn([form, 'form', name],value);
+        return state.setIn([form, 'form', name], value);
     },
     [INITIALIZE_FORM] : (state, action) => {
         const initialForm = initialState.get(action.payload);

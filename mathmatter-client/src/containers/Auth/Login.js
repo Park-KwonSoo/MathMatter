@@ -3,8 +3,10 @@ import { AuthContent, AuthButton, AlignedLink } from '../../components/Auth';
 import { Error, InputWithLabel } from '../../components/Base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import * as authActions from '../../redux/modules/auth';
 import * as profileActions from '../../redux/modules/profile';
+
 import storage from '../../lib/storage';
 import queryString from 'query-string';
 

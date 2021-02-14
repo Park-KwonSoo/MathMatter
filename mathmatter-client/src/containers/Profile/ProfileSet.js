@@ -67,7 +67,7 @@ class ProfileSet extends Component {
         const { handleChange, handlePatchChange } = this;
 
         return (
-            <ProfileContent title = '프로필 수정'>
+            <ProfileContent title = 'Edit Profile'>
                 <Information name = '아이디'>
                     {userId}
                 </Information>

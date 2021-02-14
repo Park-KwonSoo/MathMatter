@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PrintInfo, PrintSet, PrintMenu, PrintResult } from '../containers/Print'; 
+import { PrintInfo, PrintSet, PrintMenu, PrintResult, PrintType1 } from '../containers/Print'; 
 import { Route } from 'react-router-dom';
 
 class Print extends Component {
@@ -8,8 +8,9 @@ class Print extends Component {
             <div>
                 <Route exact path = '/print' component = { PrintMenu }/>
                 <Route path = '/print/info' component = { PrintInfo }/>
-                <Route path = '/print/set' component = { PrintSet }/>
+                <Route exact path = '/print/set' component = { PrintSet }/>
                 <Route path = '/print/result/:printId' component = { PrintResult }/>
+                <Route path = '/print/set/1' component = { PrintType1 }/>
             </div>
         );
     }

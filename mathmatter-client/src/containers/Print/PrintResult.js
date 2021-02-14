@@ -41,12 +41,18 @@ class PrintResult extends Component {
         }
     }
 
+    handleGoBack = async() => {
+        const { history } = this.props;
+        history.push('/print/info');
+    }
+
     render() {
         const { error } = this.props; 
         const { questionList = [{ body : "" }] } = this.props.resultPrintInfo.toJS();
+        const { handleGoBack } = this;    
 
         return(
-            <PrintMenuWrapper title = "Print Information">
+            <PrintMenuWrapper title = "Print Information" onClick = {handleGoBack}>
                 <PrintInfoDetail result = {questionList}/>
             {
                 error && <Error>{error}</Error>

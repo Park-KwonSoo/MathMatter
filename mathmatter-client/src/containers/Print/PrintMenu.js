@@ -57,12 +57,18 @@ class PrintMenu extends Component {
 
     }
 
+    handleGoBack = async() => {
+        const { history } = this.props;
+
+        history.push('/');
+    }
+
     render() {
         const { error } = this.props;
-        const { handleGetPrintList } = this;
+        const { handleGetPrintList, handleGoBack } = this;
 
         return (
-            <PrintMenuWrapper title = "Menu">
+            <PrintMenuWrapper title = "Menu" onClick = {handleGoBack}>
                 <SelectButton to = '/print/set'>문제 생성</SelectButton>
                 <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
                 {
