@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as authActions from '../../redux/modules/auth';
 import * as profileActions from '../../redux/modules/profile';
 
 import { ProfileContent, Information, SaveButton } from '../../components/Profile';
-import { Error, InputWithLabel } from '../../components/Base';
+import { Error, InputWithLabel, JustLinkButton } from '../../components/Base';
 
 import queryString from 'query-string';
 
@@ -75,7 +76,6 @@ class ProfileSet extends Component {
                     label = '이름'
                     name = 'userName'
                     placeholder = {userName}
-                    //value = {userName}
                     onChange = {handleChange}
                 />
                 <Information name = '이메일'>
@@ -85,14 +85,12 @@ class ProfileSet extends Component {
                     label = '휴대폰번호'
                     name = 'phoneNumber'
                     placeholder = {phoneNumber}
-                    //value = {phoneNumber}
                     onChange = {handleChange}
                 />
                 <InputWithLabel
                     label = '생년월일'
                     name = 'birth'
                     placeholder = {birth}
-                    //value = {birth}
                     onChange = {handleChange}
                 />
                 <Information name = '나이'>
@@ -102,6 +100,7 @@ class ProfileSet extends Component {
                     error && <Error>{error}</Error>
                 }
                 <SaveButton onClick = {handlePatchChange}>변경 내역 저장</SaveButton>
+                <JustLinkButton to = '/profile/withdraw'>회원 탈퇴</JustLinkButton>
             </ProfileContent>
 
         )
@@ -116,6 +115,7 @@ export default connect (
         changeInfo : state.profile.get('changeInfo')
     }),
     (dispatch) => ({
+        AuthActions : bindActionCreators(authActions, dispatch),
         ProfileActions : bindActionCreators(profileActions, dispatch)
     })
 )(ProfileSet);

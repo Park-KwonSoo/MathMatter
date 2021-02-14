@@ -12,6 +12,7 @@ class HeaderContainer extends Component {
         const { ProfileActions } = this.props;
         try {
             await ProfileActions.logout();
+            
         }   catch(e) {
             console.log(e);
         }

@@ -20,6 +20,9 @@ const LOCAL_LOGIN = 'auth/LOCAL_LOGIN';
 //문자열 오류 검증
 const SET_ERROR = 'auth/SET_ERROR';
 
+//회원탈퇴
+const WITHDRAW = 'auth/WITHDRAW';
+
 
 export const changeInput = createAction(CHANGE_INPUT);
 export const initializeForm = createAction(INITIALIZE_FORM);
@@ -34,6 +37,8 @@ export const localLogin = createAction(LOCAL_LOGIN, AuthAPI.localLogin);
 
 //{ form, message }
 export const setError = createAction(SET_ERROR);
+
+export const withDraw = createAction(WITHDRAW, AuthAPI.withDraw);
 
 
 const initialState = Map({
@@ -88,5 +93,9 @@ export default handleActions({
     ...pender({
         type : LOCAL_LOGIN,
         onSuccess : (state, action) => state.set('result', Map(action.payload.data))
+    }),
+    ...pender({
+        type : WITHDRAW,
+        onSuccess : (state) => state.set(initialState, initialState)
     })
 }, initialState);

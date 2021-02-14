@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux';
 import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
-import { PrintMenuWrapper, SelectButton } from '../../components/Print';
-import { Error } from '../../components/Base';
+import { PrintMenuWrapper } from '../../components/Print';
+import { Error, SelectButton } from '../../components/Base';
 
 import queryString from 'query-string';
 
@@ -67,7 +67,7 @@ class PrintMenu extends Component {
         const { handleGetPrintList, handleGoBack } = this;
 
         return (
-            <PrintMenuWrapper title = "Menu" onClick = {handleGoBack}>
+            <PrintMenuWrapper title = "Print" onClick = {handleGoBack}>
                 <SelectButton to = '/print/set'>문제 생성</SelectButton>
                 <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
                 {

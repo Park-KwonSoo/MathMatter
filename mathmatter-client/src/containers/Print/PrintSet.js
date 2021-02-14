@@ -5,7 +5,8 @@ import { bindActionCreators } from 'redux';
 
 import * as profileActions from '../../redux/modules/profile';
 
-import { PrintMenuWrapper, SelectButton } from '../../components/Print';
+import { PrintMenuWrapper } from '../../components/Print';
+import { SelectButton } from '../../components/Base';
 
 import queryString from 'query-string';
 

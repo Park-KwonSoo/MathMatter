@@ -13,12 +13,6 @@ import storage from '../../lib/storage';
 
 class PrintType2 extends Component {
 
-    //to Do : 새로고침시 정보를 불러올 수 없음
-    componentDidMount() {
-        // const { logged } = this.props;
-        // if(!logged) this.setError('먼저 로그인을 해야합니다');
-    }
-
     componentWillUnmount() {
         const { PrintActions } = this.props;
         PrintActions.initializeMakePrint();

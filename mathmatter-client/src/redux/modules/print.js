@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { Map } from 'immutable';
 import { pender } from 'redux-pender';
 
-import * as printAPI from '../../lib/api/print';
+import * as PrintAPI from '../../lib/api/print';
 
 const INITIALIZE_MAKE_PRINT = 'print/INITIALIZE_MAKE_PRINT';
 const MAKE_PRINT = 'print/MAKE_PRINT';
@@ -14,10 +14,10 @@ const SET_MY_PRINT_LIST_INFO = 'print/SET_MY_PRINT_LIST_INFO';
 
 export const initializeMakePrint = createAction(INITIALIZE_MAKE_PRINT);
 export const makePrint = createAction(MAKE_PRINT);
-export const setPrint = createAction(SET_PRINT, printAPI.setPrint);
+export const setPrint = createAction(SET_PRINT, PrintAPI.setPrint);
 export const setError = createAction(SET_ERROR);
-export const getPrintList = createAction(GET_PRINT_LIST, printAPI.getPrintList);
-export const getPrintDetail = createAction(GET_PRINT_DETAIL, printAPI.getPrintDetail);
+export const getPrintList = createAction(GET_PRINT_LIST, PrintAPI.getPrintList);
+export const getPrintDetail = createAction(GET_PRINT_DETAIL, PrintAPI.getPrintDetail);
 export const setMyPrintListInfo = createAction(SET_MY_PRINT_LIST_INFO);
 
 const initialState = Map({

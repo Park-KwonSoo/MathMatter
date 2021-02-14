@@ -11,8 +11,9 @@ const Aligner = styled.div `
 
 const StyledLink = styled(Link) `
     color : ${oc.teal[6]};
+    text-decoration : none;
     &:hover {
-        color : ${oc.teal[7]};
+        color : ${oc.teal[9]};
     }
 `;
 

@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import oc from 'open-color';
 
-import { shadow } from '../../lib/styleUtils';
-
 import { Link } from 'react-router-dom';
 
 const LinkWrapper = styled(Link) `
@@ -26,12 +24,9 @@ const Button = styled.button `
     text-decoration : none;
 
     height : 10rem;
-    ${shadow[2]};
 
-    &:hover{
+    &:hover {
         background : ${oc.teal[5]};
-        color : white;
-        ${shadow[1]};
     }
 `;
 

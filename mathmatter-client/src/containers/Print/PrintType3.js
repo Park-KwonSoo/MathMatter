@@ -13,10 +13,6 @@ import storage from '../../lib/storage';
 
 class PrintType3 extends Component {
 
-    componentDidMount() {
-
-    }
-
     componentWillUnmount() {
         const { PrintActions } = this.props;
         PrintActions.initializeMakePrint();
@@ -43,6 +39,33 @@ class PrintType3 extends Component {
         });
     }
 
+    validate = {
+        numberOfQuestion : (value) => {
+            if(isNaN(value)) {
+                this.setErrorPrint('문제 수를 입력해야 합니다.');
+                return false;
+            }
+            this.setErrorPrint(null);
+            return true;
+        },
+        questionType : (value) => {
+            if(isNaN(value)) {
+                this.setErrorPrint('문제 타입을 정확하게 입력해야 합니다.');
+                return false;
+            }
+            this.setErrorPrint(null);
+            return true;
+        },
+        difficulty : (value) => {
+            if(isNaN(value)) {
+                this.setErrorPrint('난이도를 정확하게 입력해야 합니다.');
+                return false;
+            }
+            this.setErrorPrint(null);
+            return true;
+        }
+    }
+
     handleChange = (e) => {
         const { PrintActions } = this.props;
         const { name, value } = e.target;
@@ -60,25 +83,30 @@ class PrintType3 extends Component {
 
         const { numberOfQuestion, questionType, difficulty } = this.props.makeInfo.toJS();
         let { includeMore } = this.props.makeInfo.toJS();
+        const { validate } = this;
+
+        if(!validate['numberOfQuestion'](numberOfQuestion)
+        || !validate['questionType'](questionType)
+        || !validate['difficulty'](difficulty)) return;
 
         try {
             if(includeMore === 'true')  includeMore = true;
             else    includeMore = false;
     
-            // await PrintActions.setPrint({
-            //     type : 3,
-            //     numberOfQuestion : Number(numberOfQuestion),
-            //     questionType : Number(questionType),
-            //     difficulty : Number(difficulty),
-            //     includeMore
-            // });
+            await PrintActions.setPrint({
+                type : 3,
+                numberOfQuestion : Number(numberOfQuestion),
+                questionType : Number(questionType),
+                difficulty : Number(difficulty),
+                includeMore
+            });
 
-            // await PrintActions.getPrintList();
+            await PrintActions.getPrintList();
 
-            // const { _id } = this.props.resultPrintInfo.toJS();
+            const { _id } = this.props.resultPrintInfo.toJS();
 
-            // storage.set('myPrintList', this.props.myPrintList);
-            // history.push('/print/result/' + _id);
+            storage.set('myPrintList', this.props.myPrintList);
+            history.push('/print/result/' + _id);
 
         }   catch(e) {
             this.setErrorPrint('알 수 없는 에러가 발생했습니다');

@@ -8,3 +8,5 @@ export const localLogin = ({userId, password}) => client.post('/api/auth/login',
 
 export const checkStatus = () => client.get('/api/auth/check');
 export const logout = () => client.post('/api/auth/logout');
+
+export const withDraw = () => client.delete('/api/auth/withdraw');

@@ -5,19 +5,20 @@ import oc from 'open-color';
 const Label = styled.label `
     font-family : Raleway;
     text-decoration : none;
- 
+
     & + & {
         margin-left : 1rem;
     }
 `;
 
-const RadioButton = styled.input `
-    
+const RadioButton = styled.input.attrs({
+    type : 'radio'
+}) `
 `;
 
 const Radio = ({children, ...rest}) => (
     <Label>
-        <RadioButton type = 'radio' {...rest}/>
+        <RadioButton {...rest}/>
         {children}
     </Label>
 );

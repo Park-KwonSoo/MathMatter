@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 
 import * as profileActions from '../../redux/modules/profile';
 
-import { HomeWrapper, IsLoggin, NotLoggin } from '../../components/Home';
+import { HomeWrapper, NotLoggin } from '../../components/Home';
+import { SelectButton } from '../../components/Base';
 
 class HomeContainer extends Component {
 
@@ -30,15 +31,15 @@ class HomeContainer extends Component {
         if(logged) {
             return (
                 <HomeWrapper>
-                    <IsLoggin to = '/profile' onClick = {handleGetProfile}>
-                        프로필메뉴
-                    </IsLoggin>
-                    <IsLoggin to = '/print'>
-                        프린트메뉴
-                    </IsLoggin>
-                    <IsLoggin to = '/write'>
+                    <SelectButton to = '/profile' onClick = {handleGetProfile}>
+                        내 프로필
+                    </SelectButton>
+                    <SelectButton to = '/print'>
+                        프린트
+                    </SelectButton>
+                    <SelectButton to = '/write'>
                         게시판
-                    </IsLoggin>
+                    </SelectButton>
                 </HomeWrapper>
             )
         } else  
