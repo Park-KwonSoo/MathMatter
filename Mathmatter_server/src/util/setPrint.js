@@ -106,7 +106,7 @@ exports.setTypeT = async function(object) {
         if(includeMore) {
             //questionType이 하나라도 포함된 문제들을 모두 출력한다.
             questionList = await setRandomQuestion(await Question.find({
-                questiontype : questionType
+                questionType : questionType
             }), numberOfQuestion, difficulty);
         } else {    //만약 이후 과정의 문제를 받길 원하지 않는다면
             //questionType이 최대가 되고 그 값을 포함 하는 문제들을 받아온다.
