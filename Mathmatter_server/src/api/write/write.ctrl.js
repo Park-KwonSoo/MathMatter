@@ -41,6 +41,7 @@ exports.writing = async (ctx) => {
         
         //방금 작성한 글에 대한 정보를 보인다.
         ctx.body = profileSaveWrite;
+        
     } catch(e) {
         ctx.throw(500, e);
     }

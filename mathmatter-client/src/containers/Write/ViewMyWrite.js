@@ -22,7 +22,7 @@ class ViewMyWrite extends Component {
 
         return (
             <WriteWrapper title = 'My Write' onClick = {handleGoBack}>
-                
+                구현 예정
             </WriteWrapper>
         )
     }
