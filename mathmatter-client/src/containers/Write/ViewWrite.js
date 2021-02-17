@@ -74,10 +74,12 @@ class ViewWrite extends Component {
 
     handleReplying = async() => {
         try {
-            const { WriteActions, replying, history } = this.props;
+            const { WriteActions, replying, history, match } = this.props;
             const { body } = replying;
+            const { postId } = match.params;
 
             WriteActions.replying({
+                postId,
                 body
             });
             
@@ -108,7 +110,7 @@ class ViewWrite extends Component {
 
     render() {
         const { logged, errorProfile, match } = this.props;
-        const { title, userId, date, body, comment = [] } = this.props.viewing.toJS();
+        const { title, userId, date, body, comments = []} = this.props.viewing.toJS();
         const { handleChange, handleReplying, handleDeleteWrite, handleGoBack, validate } = this;
 
         return (
@@ -124,7 +126,7 @@ class ViewWrite extends Component {
                     + (new Date(date)).getHours() + ':'
                     + (new Date(date)).getMinutes()}
                     body = {body}
-                    comment = {comment}
+                    comments = {comments}
                     onChange = {handleChange}
                     onClick = {handleReplying}>
                         {

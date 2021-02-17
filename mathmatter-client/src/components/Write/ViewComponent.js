@@ -38,7 +38,7 @@ const ID = styled.div `
     margin-top : 1rem;
 `;
 
-const Date = styled.div `
+const DateDiv = styled.div `
     font-family : Raleway;
     font-size : .7rem;
     font-weight : 600;
@@ -73,12 +73,16 @@ const Comment = styled.li `
     font-family : Raleway;
     font-size : 1rem;
     font-weight : 500px;
+    
+    margin-top : .5rem;
 
-    margin-right : auto;
-    margin-left : auto;
+    border : 1px solid transparent;
+    
+    padding : 0 1rem;
 
-    display : block;
-    justify-content : center;
+    & + & {
+        margin-top : .2rem;
+    }
 `;
 
 const ReplyPositioner = styled.div `
@@ -117,7 +121,7 @@ const SaveButton = styled.button `
     padding : .1rem .7rem;
 `;
 
-const ViewComponent = ({title, userId, date, body, comment, onClick, children, ...rest}) => (
+const ViewComponent = ({title, userId, date, body, comments, onClick, children, ...rest}) => (
     <div>
         <Wrapper>
             <LocationLeft/>
@@ -137,9 +141,9 @@ const ViewComponent = ({title, userId, date, body, comment, onClick, children, .
                 <ID>
                     {'ID : ' + userId}
                 </ID>
-                <Date>
+                <DateDiv>
                     {'Date : ' + date}
-                </Date>
+                </DateDiv>
             </LocationRight>
         </Wrapper>
         <Line/>
@@ -148,10 +152,15 @@ const ViewComponent = ({title, userId, date, body, comment, onClick, children, .
         </Body>
         <Line/>
         {
-            comment.map((commentList) => {
+            comments.map((commentList) => {
                 return (
                     <Comment key = {commentList._id}>
-                        {commentList.userId} // {comment.body} // {comment.date}
+                        {commentList.userId} : {commentList.body} // 
+                        {(new Date(commentList.date)).getFullYear() + '-'
+                        + ((new Date(commentList.date)).getMonth() + 1) + '-'
+                        + (new Date(commentList.date)).getDate() + ' '
+                        + (new Date(commentList.date)).getHours() + ':'
+                        + (new Date(commentList.date)).getMinutes()}
                     </Comment>
                 )
             })

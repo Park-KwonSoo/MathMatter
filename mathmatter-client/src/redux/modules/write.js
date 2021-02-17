@@ -76,7 +76,7 @@ export default handleActions({
         onSuccess : (state, action) => state.set('viewing', Map(action.payload.data))
     }),
     ...pender({
-        type : REPLYING
+        type : REPLYING,
     }),
     ...pender({
         type : DELETE_WRITING,
