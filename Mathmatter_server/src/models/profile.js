@@ -32,4 +32,13 @@ ProfileSchema.methods.getPrintList = function() {
     return this.printList;
 };
 
+ProfileSchema.methods.havePrint = function(_id) {
+    let i;
+    for(i = 0; i < this.printList.length; i++) 
+        if(this.printList[i]._id.equals(_id)) 
+            return true;
+    
+    return false;
+};
+
 module.exports = mongoose.model("Profile", ProfileSchema);
