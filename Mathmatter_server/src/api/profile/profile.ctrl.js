@@ -35,9 +35,9 @@ exports.setProfile = async (ctx) => {
 
         const { birth, phoneNumber, userName } = ctx.request.body;
         const profile = {
-            birth : birth,
-            phoneNumber : phoneNumber,
-            userName : userName
+            birth,
+            phoneNumber,
+            userName
         };
 
         if(birth !== "") {
