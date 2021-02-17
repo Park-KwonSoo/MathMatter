@@ -15,6 +15,17 @@ class Writing extends Component {
     }
     
     componentWillUnmount() {
+        const { WriteActions } = this.props;
+        WriteActions.write({
+            name : 'title',
+            value : ''
+        });
+        
+        WriteActions.write({
+            name : 'body',
+            value : ''
+        });
+
         this.setErrorProfile(null);
         this.setErrorWrite(null);
     }

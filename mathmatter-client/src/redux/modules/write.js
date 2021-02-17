@@ -14,6 +14,7 @@ const SEE_MY_WRITING_LIST = 'wrtie/SEE_MY_WRITING_LIST';
 const SEE_WRITING = 'write/SEE_WRITING';
 const REPLY = 'write/REPLY';
 const REPLYING = 'write/REPLYING';
+const EDITING = '/wrtie/EDITING';
 const DELETE_WRITING = 'write/DELETE_WRITING';
 
 export const initializeWritingForm = createAction(INITIALIZE_WRITING_FORM);
@@ -25,6 +26,7 @@ export const seeMyWritingList = createAction(SEE_MY_WRITING_LIST, WriteAPI.seeMy
 export const seeWriting = createAction(SEE_WRITING, WriteAPI.seeWriting);
 export const reply = createAction(REPLY);
 export const replying = createAction(REPLYING, WriteAPI.replying);
+export const editing = createAction(EDITING, WriteAPI.editing);
 export const deleteWriting = createAction(DELETE_WRITING, WriteAPI.deleteWriting);
 
 const initialState = Map ({
@@ -77,6 +79,10 @@ export default handleActions({
     }),
     ...pender({
         type : REPLYING,
+    }),
+    ...pender({
+        type : EDITING,
+        onSuccess : (state, action) => state.set('viewing', Map(action.payload.data))
     }),
     ...pender({
         type : DELETE_WRITING,

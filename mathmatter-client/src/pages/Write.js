@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import { WriteMenu, Board, ViewWrite, Writing, ViewMyWrite } from '../containers/Write'; 
+import { WriteMenu, Board, ViewWrite, Writing, ViewMyWrite, EditMyWrite } from '../containers/Write'; 
 
 class Write extends Component {
     render() {
@@ -12,6 +12,7 @@ class Write extends Component {
                 <Route path = '/write/view/:postId' component = { ViewWrite }/> 
                 <Route path = '/write/write' component = { Writing }/>
                 <Route path = '/write/mywrite' component = { ViewMyWrite }/>
+                <Route path = '/write/edit/:postId' component = { EditMyWrite } />
             </div>
         );
     }

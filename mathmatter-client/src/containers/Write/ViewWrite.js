@@ -132,7 +132,7 @@ class ViewWrite extends Component {
                         {
                             validate() ?
                             <ButtonWrapper>
-                                <EditAndDeleteButton to = {'/write/view/' + match.params.postId + '/edit'}>수정</EditAndDeleteButton>
+                                <EditAndDeleteButton to = {'/write/edit/' + match.params.postId}>수정</EditAndDeleteButton>
                                 <EditAndDeleteButton to = '/write/board' onClick = {handleDeleteWrite}>삭제</EditAndDeleteButton>
                             </ButtonWrapper>
                             : ''
