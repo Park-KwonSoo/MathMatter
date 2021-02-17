@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 
 import { Link } from 'react-router-dom';
 
@@ -10,7 +9,7 @@ const Li = styled.li `
 `;
 
 const List = styled(Link) `
-    color : ${oc.teal[7]};
+    color : black;
     text-decoration : none;
 `;
 
@@ -21,7 +20,12 @@ const BoardComponents = ({boardList}) => (
             return (
                 <Li key = {board.postId}>
                     <List to = {'/write/view/' + board.postId}>
-                        {board.postId} // {board.title} // {board.userId} // {board.date}
+                        {board.postId} // {board.title} // {board.userId} //
+                        {(new Date(board.date)).getFullYear() + '-'
+                        + ((new Date(board.date)).getMonth() + 1) + '-'
+                        + (new Date(board.date)).getDate() + ' '
+                        + (new Date(board.date)).getHours() + ':'
+                        + (new Date(board.date)).getMinutes()}
                     </List>
                 </Li>
             )

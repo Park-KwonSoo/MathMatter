@@ -37,12 +37,15 @@ class Board extends Component {
     }
 
     render() {
-        const { board } = this.props;
+        const { error, board } = this.props;
         const { handleGoBack } = this;
 
         return (
             <WriteWrapper title = 'Board' onClick = {handleGoBack}>
                 <BoardComponents boardList = {board}/>
+                {
+                    error && <Error>{error}</Error>
+                }
             </WriteWrapper>
         );
     }

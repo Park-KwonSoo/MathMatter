@@ -12,6 +12,7 @@ const WRITING = 'write/WRITING';
 const SEE_BOARD = 'write/SEE_BOARD';
 const SEE_MY_WRITING_LIST = 'wrtie/SEE_MY_WRITING_LIST';
 const SEE_WRITING = 'write/SEE_WRITING';
+const REPLY = 'write/REPLY';
 const REPLYING = 'write/REPLYING';
 const DELETE_WRITING = 'write/DELETE_WRITING';
 
@@ -22,6 +23,7 @@ export const writing = createAction(WRITING, WriteAPI.writing);
 export const seeBoard = createAction(SEE_BOARD, WriteAPI.seeBoard);
 export const seeMyWritingList = createAction(SEE_MY_WRITING_LIST, WriteAPI.seeMyWritingList);
 export const seeWriting = createAction(SEE_WRITING, WriteAPI.seeWriting);
+export const reply = createAction(REPLY);
 export const replying = createAction(REPLYING, WriteAPI.replying);
 export const deleteWriting = createAction(DELETE_WRITING, WriteAPI.deleteWriting);
 
@@ -30,14 +32,11 @@ const initialState = Map ({
     board : [],
     myWritingList : [],
     writing : Map({
-        userId : '',
         title : '',
         body : '',
     }),
     replying : Map({
-        userId : '',
         body : '',
-        date : Date
     }),
     viewing : Map({
         userId : '',
@@ -59,6 +58,7 @@ export default handleActions({
         const { name, value } = action.payload;
         return state.setIn(['writing', name], value);
     },
+    [REPLY] : (state, action) => state.set('replying', action.payload),
     ...pender({
         type : WRITING,
         onSuccess : (state, action) => state.set('viewing', Map(action.payload.data))

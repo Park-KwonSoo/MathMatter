@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import oc from 'open-color';
 
 import { Link } from 'react-router-dom';
 
@@ -14,7 +13,7 @@ const Li = styled.li `
 `;
 
 const List = styled(Link) `
-    color : ${oc.teal[7]};
+    color : black;
     text-decoration : none;
 `;
 
@@ -26,7 +25,14 @@ const GetPrintInfo = ({myPrintList}) => (
         return (
             <Li key = {myList._id}>
                 <List to = {'/print/result/' + myList._id}>
-                    {myList.typeOfPrint}    {myList.typeOfExam} {myList.numberOfQuestion}   {myList.createdDate}
+                    {myList.typeOfPrint} // {myList.typeOfExam} // {myList.numberOfQuestion} // 
+                    { 
+                        (new Date(myList.createdDate)).getFullYear() + '-' +
+                        ((new Date(myList.createdDate)).getMonth() + 1) + '-' + 
+                        (new Date(myList.createdDate)).getDate() + ' ' + 
+                        (new Date(myList.createdDate)).getHours() + `:` +
+                        (new Date(myList.createdDate)).getMinutes()
+                    }
                 </List>
             </Li>
         )

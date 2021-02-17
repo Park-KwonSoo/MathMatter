@@ -15,7 +15,8 @@ class WriteMenu extends Component {
     }
 
     componentWillUnmount() {
-
+        this.setErrorProfile(null);
+        this.setErrorWrite(null);
     }
 
     setErrorProfile = (message) => {
@@ -78,9 +79,9 @@ class WriteMenu extends Component {
         return (
             <WriteWrapper title = 'Write Menu' onClick = {handleGoBack}>
                 <WriteContents>
-                    <SelectButton to = '/write/board' onClick = {handleGoBoard}>Board</SelectButton>
-                    <SelectButton to = '/write/write'>Write</SelectButton>
-                    <SelectButton to = '/write/mywrite' onClick = {handleGetMyWrite}>{'My' + '\n' + 'Write'}</SelectButton>
+                    <SelectButton to = '/write/board' onClick = {handleGoBoard}>게시판</SelectButton>
+                    <SelectButton to = '/write/write'>글작성</SelectButton>
+                    <SelectButton to = '/write/mywrite' onClick = {handleGetMyWrite}>내가 쓴 글</SelectButton>
                 </WriteContents>
                 <WriteContents>
                     {

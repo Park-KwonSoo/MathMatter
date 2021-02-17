@@ -45,9 +45,11 @@ class ProfileInfo extends Component {
                 </Information>
                 <Information name = '휴대폰 번호'>
                     {phoneNumber}
-                </Information>
+                </Information>  
                 <Information name = '생년 월일'>
-                    {birth}
+                    {(new Date(birth)).getFullYear() + '-'
+                    + ((new Date(birth)).getMonth() + 1) + '-'
+                    + (new Date(birth)).getDate()}
                 </Information>
                 <Information name = '나이'>
                     {age}

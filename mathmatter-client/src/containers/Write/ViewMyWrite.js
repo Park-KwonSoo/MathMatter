@@ -5,11 +5,20 @@ import { bindActionCreators } from 'redux';
 import * as profileActions from '../../redux/modules/profile';
 import * as writeActions from '../../redux/modules/write';
 
-import { WriteWrapper } from '../../components/Write';
+import { WriteWrapper, BoardComponents } from '../../components/Write';
 import { Error } from '../../components/Base';
 
 //toDo : 페이지네이션
 class ViewMyWrite extends Component {
+
+    componentDidMount() {
+        const { WriteActions } = this.props;
+        WriteActions.seeMyWritingList();
+    }
+
+    componentWillUnmount() {
+        
+    }
 
     handleGoBack = () => {
         const { history } = this.props;
@@ -17,12 +26,18 @@ class ViewMyWrite extends Component {
     }
 
     render() {
-        const { myWritingList } = this.props;
+        const { errorProfile, errorWrite, myWritingList } = this.props;
         const { handleGoBack } = this;
 
         return (
             <WriteWrapper title = 'My Write' onClick = {handleGoBack}>
-                구현 예정
+                <BoardComponents boardList = {myWritingList}/>
+                {
+                    errorProfile && <Error>{errorProfile}</Error>
+                }
+                {
+                    errorWrite && <Error>{errorWrite}</Error>
+                }
             </WriteWrapper>
         )
     }

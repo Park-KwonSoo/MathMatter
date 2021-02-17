@@ -13,7 +13,7 @@ const LocationLeft  = styled.div `
 `;
 
 const LocationCenter = styled.div `
-    flex : 3;
+    flex : 4;
 `;
 
 const LocationRight = styled.div `
@@ -44,6 +44,9 @@ const Date = styled.div `
     font-weight : 600;
     margin-top : 1rem;
     margin-bottom : 0.5rem;
+    margin-right : .5rem;
+
+    width : 100px;
 `;
 
 const Line = styled.div `
@@ -66,8 +69,16 @@ const Body  = styled.div `
     margin-bottom : 4rem;
 `;
 
-const Comment = styled.div `
+const Comment = styled.li `
+    font-family : Raleway;
+    font-size : 1rem;
+    font-weight : 500px;
 
+    margin-right : auto;
+    margin-left : auto;
+
+    display : block;
+    justify-content : center;
 `;
 
 const ReplyPositioner = styled.div `
@@ -81,12 +92,32 @@ const ReplyPositioner = styled.div `
 const Reply = styled.input `
     margin-left : 1rem;
     margin-right : 1rem;
+    padding : .5rem 1rem;
 
     font-family : Raleway;
+    font-size : 1rem;
+    font-weight : 400;
+
+    border : 1px solid ${oc.teal[7]};
+    border-radius : 3px;
 
 `;
 
-const ViewComponent = ({title, userId, date, body, comment, ...rest}) => (
+const SaveButton = styled.button `
+    background : white;
+    color : ${oc.teal[7]};
+    
+    font-family : Raleway;
+    font-size : 1.1rem;
+    font-weight : 500;
+
+    border : 1px solid;
+    border-radius : 3px;
+
+    padding : .1rem .7rem;
+`;
+
+const ViewComponent = ({title, userId, date, body, comment, onClick, children, ...rest}) => (
     <div>
         <Wrapper>
             <LocationLeft/>
@@ -98,7 +129,9 @@ const ViewComponent = ({title, userId, date, body, comment, ...rest}) => (
             <LocationRight/>
         </Wrapper>
         <Wrapper>
-            <LocationLeft/>
+            <LocationLeft>
+                {children}
+            </LocationLeft>
             <LocationCenter/>
             <LocationRight>
                 <ID>
@@ -114,13 +147,19 @@ const ViewComponent = ({title, userId, date, body, comment, ...rest}) => (
             {body}
         </Body>
         <Line/>
-        <Comment>
-            {comment}
-        </Comment>
+        {
+            comment.map((commentList) => {
+                return (
+                    <Comment key = {commentList._id}>
+                        {commentList.userId} // {comment.body} // {comment.date}
+                    </Comment>
+                )
+            })
+        }
         <ReplyPositioner>
             댓글 :
             <Reply {...rest}/>
-            등록
+            <SaveButton onClick = {onClick}>등록</SaveButton>
         </ReplyPositioner>
     </div>
 )

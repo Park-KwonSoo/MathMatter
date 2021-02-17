@@ -60,6 +60,7 @@ const Title = styled.div `
     color : white;
     font-family : Raleway;
     font-size : 1.7rem;
+
     letter-spacing : 5px;
     text-decoration : none;
     display : flex;

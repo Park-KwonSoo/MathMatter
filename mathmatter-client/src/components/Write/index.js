@@ -2,3 +2,9 @@ export { default as WriteWrapper } from './WriteWrapper';
 export { default as WriteContents } from './WriteContents';
 export { default as BoardComponents } from './BoardComponents';
 export { default as ViewComponent } from './ViewComponent';
+export { default as TitleInput } from './TitleInput';
+export { default as BodyInput } from './BodyInput';
+export { default as WriteButton } from './WriteButton';
+export { default as ButtonWrapper } from './ButtonWrapper' 
+export { default as EditAndDeleteButton } from './EditAndDeleteButton';
+export { default as EditComponent } from './EditComponent';

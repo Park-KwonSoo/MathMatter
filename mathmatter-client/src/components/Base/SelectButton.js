@@ -19,11 +19,14 @@ const Button = styled.button `
     border : 3px solid;
 
     font-family : Raleway;
-    font-size : 1.5rem;
-    letter-spacing : 5px;
+    font-size : 1.2rem;
+    font-weight : 400;
+    
+    letter-spacing : 3px;
     text-decoration : none;
 
     height : 10rem;
+    width : 140px;
 
     &:hover {
         background : ${oc.teal[5]};
