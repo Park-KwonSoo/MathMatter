@@ -10,9 +10,9 @@ require("dotenv").config();
 
 const app = new Koa();
 const router = new Router();
-const accessLogStream = fs.createWriteStream(__dirname + "_access.log", {
-    flags : "a",
-});
+// const accessLogStream = fs.createWriteStream(__dirname + "_access.log", {
+//     flags : "a",
+// });
 
 app.use(bodyParser());
 app.use(jwtMiddleware);

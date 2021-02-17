@@ -18,20 +18,20 @@ exports.setType = async (ctx, next) => {
  *  by Type
  */
 exports.setPrint = async (ctx, next) => {
-    //타입을 결정하기 위해 url parameter에서 값을 가져온다.
-    const { type } = ctx.params;
-
     //로그인한 유저의 정보를 받아오기 위한 토큰
     const token = ctx.cookies.get('access_token');
 
-    if(!token) {
+    if(!token)
         return;
-    }
 
     try{
         //로그인한 유저의 ID를 찾는다.
         const { userId } = jwt.verify(token, process.env.JWT_SECRET);
         const profile = await Profile.findByUserId(userId);
+
+        //타입을 결정하기 위해 url parameter에서 값을 가져온다.
+        const { type } = ctx.params;
+
         //타입에 따라 생성된 프린트
         let print;
         //pamas의 type(1, 2, 3)에 따라 내신형, 수능형, 유형별로 결정된다.
@@ -78,3 +78,35 @@ exports.setPrint = async (ctx, next) => {
 exports.printing = async (ctx) => {
     //구현 필수
 };
+
+/**
+ * GET Print Info
+ * for Read Log
+ */
+exports.readPrint = async (ctx) => {
+    //로그인한 유저의 정보를 받아오는 토큰
+    const token = ctx.cookies.get('access_token');
+
+    if(!token)
+        return;
+
+    try { 
+        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const profile = await Profile.findByUserId(userId);
+
+        const { printId } = ctx.params;
+
+        const userHavePrint = await profile.havePrint(printId);
+        if(!userHavePrint) {
+            ctx.status = 401;
+            return;
+        }
+
+        const print = await Print.findById(printId);
+
+        ctx.body = print;
+
+    } catch(e) {
+        ctx.throw(500, e);
+    }
+}

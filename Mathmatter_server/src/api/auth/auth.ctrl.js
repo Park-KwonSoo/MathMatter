@@ -4,17 +4,67 @@ const User = require('../../models/user');
 const Profile = require('../../models/profile');
 
 /**
+ *  GET UserId
+ *  if UserId Exists : return false
+ */
+exports.checkId = async(ctx) => {
+    const { userId } = ctx.params;  //아이디가 존재하는지 확인
+
+    try {
+        const existUser = await User.findByUserId(userId);
+
+        if(existUser) {
+            //ctx.status = 400;
+            ctx.body = existUser;
+            return false;
+        }  else {
+            ctx.body = null;
+            return true;
+        }
+
+    }   catch(e) {
+        return ctx.throw(500, e);
+    }
+}
+
+/**
+ *  GET UserEmail
+ *  if UserEmail Exists : return false
+ */
+exports.checkEmail = async(ctx) => {
+    const { email } = ctx.params;
+
+    try {
+        const existUser = await Profile.findByEmail(email);
+
+        if(existUser) {
+            // ctx.status = 400;
+            ctx.body = existUser;
+            return false;
+        }   else {
+            ctx.body = null;
+            return true;
+        }
+
+    }   catch(e) {
+        return ctx.throw(500, e);
+    }
+}
+
+
+/**
  *  POST    Register
  *  user ID
  *  Passwrod
  */
 exports.register = async (ctx) => {
     //userId와 password를 받아온다/
-    const { userId, password } = ctx.request.body;
+    const { userId, email, password } = ctx.request.body;
 
     //joi를 이용하여 유효성을 검증한다
     const schema = Joi.object().keys({
         userId : Joi.string().min(5).max(15).required(),
+        email : Joi.string().email().required(),
         password : Joi.string().required()
     });
 
@@ -29,9 +79,10 @@ exports.register = async (ctx) => {
 
     //이미 존재하는 회원인지 확인하게 위해 mongoDB의 UserSchema에서 해당 회원을 확인
     const existUser = await User.findByUserId(userId);
+    const existEmail = await Profile.findByEmail(email);
 
     //만약 유저가 있다면 409 에러
-    if(existUser) {
+    if(existUser || existEmail) {
         ctx.status =409;
         return;
     }
@@ -43,7 +94,8 @@ exports.register = async (ctx) => {
             userId
         });
         const profile = new Profile ({
-            userId
+            userId,
+            email
         });
         
         //패스워드를 해쉬 처리한 후
@@ -53,11 +105,8 @@ exports.register = async (ctx) => {
         await user.save();
         await profile.save();
 
-        //잘 저장되었으면 해당 유저의 정보를 출력
-        console.log(user);
-        console.log(profile);
+        ctx.body = profile;
 
-        ctx.body = "회원가입 성공";
     } catch(e) {
         //예상치 못한 에러 발생 시 500
         return ctx.throw(500, e);
@@ -107,7 +156,21 @@ exports.login = async (ctx) => {
                 maxAge : 1000 * 60 * 60 * 24 * 7
             });
 
-            ctx.body = "로그인 성공";
+            //로그인 시 나이를 갱신한다.
+            const profile = await Profile.findByUserId(userId);
+
+            const now = new Date();
+            const profileBirth = new Date(profile.birth);
+            const age = now.getFullYear() - profileBirth.getFullYear() + 1;
+
+            await Profile.updateOne({ userId }, {
+                age : age
+            }, {
+                new : true
+            });
+
+            ctx.body = profile;
+
         } catch(e) {
             return ctx.throw(500, e);
         }
@@ -122,12 +185,16 @@ exports.login = async (ctx) => {
  *  POST Logout
  */
 exports.logout = async (ctx) => {
-    ctx.cookies.set('access_token', null, {
-        httpOnly : true,
-        maxAge : 0
-    });
-    
-    ctx.body = "로그아웃 성공";
+    try {
+        ctx.cookies.set('access_token', null, {
+            httpOnly : true,
+            maxAge : 0
+        });
+
+        ctx.body = null;
+    }   catch(e) {
+        return ctx.throw(500, e);
+    }
 }
 
 /**
@@ -147,9 +214,24 @@ exports.withdraw = async (ctx) => {
     try {
         await User.deleteOne({ userId });
         await Profile.deleteOne({ userId });
-        ctx.body = "탈퇴 성공";
+
+        ctx.body = null;
     } catch(e) {
         return ctx.throw(500, e);
     }
 
+}
+
+/**
+ *  GET USER PROFILE
+ */
+exports.check = async(ctx) => {
+    const { user } = ctx.state;
+
+    if(!user) {
+        ctx.status = 403;
+        return;
+    }
+
+    ctx.body = user.userId;
 }

@@ -8,29 +8,32 @@ exports.setTypeN = async function(object) {
     const { semester, numberOfQuestion, typeOfExam, difficulty } = object;
     let { age } = object;
 
-    //19살 = 고3이 넘어가면 전부 고3
-    if(age > 19) {
-        age = 19;
-    };
-    
-    //과목은 학년 + 학기
-    const subject = 10 * age + semester;
+    try {
+        //19살 = 고3이 넘어가면 전부 고3
+        if(age > 19) {
+            age = 19;
+        };
+        
+        //과목은 학년 + 학기
+        const subject = 10 * age + semester;
 
-    //해당 subject의 값을 가진 모든 객체들에서 랜덤으로 numberOfQuestion만큼 추출한다
-    const questionList = await setRandomQuestion(await Question.find({
-        subject
-    }), numberOfQuestion, difficulty);
+        //해당 subject의 값을 가진 모든 객체들에서 랜덤으로 numberOfQuestion만큼 추출한다
+        const questionList = await setRandomQuestion(await Question.find({
+            subject
+        }), numberOfQuestion, difficulty);
+        
+        const print = {
+            typeOfPrint : '내신형',
+            typeOfExam,
+            numberOfQuestion,
+            questionList,
+            difficulty
+        };
 
-    const print = {
-        typeOfPrint : 1,
-        typeOfExam,
-        numberOfQuestion,
-        questionList,
-        difficulty
-    };
-
-    console.log(print);
-    return print;
+        return print;
+    }   catch(e) {
+        throw(500, e);
+    }
 };
 
 /**
@@ -40,51 +43,54 @@ exports.setTypeS = async function(object) {
     //모의고사는 오직 30문제로 구성되고, 학년과 달에 의해서만 영향을 받는다.
     const { age, month } = object;
 
-    let subject;
-    //고3보다 작으면 과목은 1학기, 2학기밖에 없다
-    if(age < 19) {
-        subject = age * 10;
-        switch(month) {
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                subject += 1;
-                break;
-            default :
-                subject += 2;
-                break;
+    try {
+        let subject;
+        //고3보다 작으면 과목은 1학기, 2학기밖에 없다
+        if(age < 19) {
+            subject = age * 10;
+            switch(month) {
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    subject += 1;
+                    break;
+                default :
+                    subject += 2;
+                    break;
+            }
+        } else {
+            subject = 190;
+            switch(month) {
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                    subject += 2;
+                    break;
+                default :
+                    subject += 3;
+                    break;
+            }
         }
-    } else {
-        subject = 190;
-        switch(month) {
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-                subject += 2;
-                break;
-            default :
-                subject += 3;
-                break;
+
+        //과목이 최소 subject범위의 모든 문제들을 가져옴
+        const questionList = await setRandomQuestion(await Question.find({
+            subject : { $lte : subject}
+        }), 30, 0);
+
+        const print = {
+            typeOfPrint : '수능형',
+            typeOfExam : 3,
+            numberOfQuestion : 30,
+            questionList,
+            difficulty : 0
         }
+
+        return print;
+    }   catch(e) {
+        throw(500, e);
     }
-
-    //과목이 최소 subject범위의 모든 문제들을 가져옴
-    const questionList = await setRandomQuestion(await Question.find({
-        subject : { $lte : subject}
-    }), 30, 0);
-
-    const print = {
-        typeOfPrint : 2,
-        typeOfExam : 3,
-        numberOfQuestion : 30,
-        questionList,
-        difficulty : 0
-    }
-
-    return print;
-
 };
 
 /**
@@ -92,33 +98,37 @@ exports.setTypeS = async function(object) {
  */
 exports.setTypeT = async function(object) {
     //유형별 문제는 문제수, 문제 유형, 난이도, 그리고 이후 과목을 포함하는가 여부를 받아와서 문제를 설정한다.
-    const { numberOfQuestion, questionType, difficulty, includeMore} = object;
+    const { numberOfQuestion, questionType, difficulty, includeMore } = object;
 
-    let questionList;
-    //만약 받아온다면, questionType이 있는 모든 문제들을 받아와서 출력한다.
-    if(includeMore) {
-        //questionType이 하나라도 포함된 문제들을 모두 출력한다.
-        questionList = await setRandomQuestion(await Question.find({
-            questiontype : questionType
-        }), numberOfQuestion, difficulty);
-    } else {    //만약 이후 과정의 문제를 받길 원하지 않는다면
-        //questionType이 최대가 되고 그 값을 포함 하는 문제들을 받아온다.
-        questionList = await setRandomQuestion(await Question.find({
-            $and :
-            [{ questiontype : { $not : { $gt : questionType }}},
-            { questiontype : questionType }]
-        }), numberOfQuestion, difficulty);
-    }
-    
-    const print = {
-        typeOfPrint : 3,
-        typeOfExam : 0,
-        numberOfQuestion,
-        questionList,
-        difficulty
-    }
+    try {
+        let questionList;
+        //만약 받아온다면, questionType이 있는 모든 문제들을 받아와서 출력한다.
+        if(includeMore) {
+            //questionType이 하나라도 포함된 문제들을 모두 출력한다.
+            questionList = await setRandomQuestion(await Question.find({
+                questionType : questionType
+            }), numberOfQuestion, difficulty);
+        } else {    //만약 이후 과정의 문제를 받길 원하지 않는다면
+            //questionType이 최대가 되고 그 값을 포함 하는 문제들을 받아온다.
+            questionList = await setRandomQuestion(await Question.find({
+                $and :
+                [{ questionType : { $not : { $gt : questionType }}},
+                { questionType : questionType }]
+            }), numberOfQuestion, difficulty);
+        }
+        
+        const print = {
+            typeOfPrint : '유형별',
+            typeOfExam : 0,
+            numberOfQuestion,
+            questionList,
+            difficulty
+        }
 
-    return print;
+        return print;
+    }   catch(e) {
+        throw(500, e);
+    }
 };
 
 //questionList에서 numberOfQuestion만큼 랜덤으로 문제를 뽑는다.
@@ -225,7 +235,6 @@ const setRandomQuestion = async function(questionList, numberOfQuestion, difficu
 
         isNotExist = true;
     }
-
     
      //dif3_list
     random = Math.floor(Math.random() * dif3_list.length);

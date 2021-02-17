@@ -6,23 +6,22 @@ const ProfileSchema = new Schema ({
     userId : { type : String, required : true, unique : true },
     birth : { type : Date, default : Date.now, required : true },
     age : Number,
-    phoneNumber : { type : Number, unique : true},
+    phoneNumber : { type : Number, unique : true, sparse : true },
     email : { type : String, unique : true },
     userName : String,
-    printList : [Object],
-    writeList : [Object]
+    printList : [Object]
 });
 
 ProfileSchema.statics.findByUserId = function(userId) {
     return this.findOne({userId});
 };
 
-ProfileSchema.methods.addPrintList = function(Object) {
-    this.printList.push(Object);
+ProfileSchema.statics.findByEmail = function(email) {
+    return this.findOne({email});
 };
 
-ProfileSchema.methods.addWriteList = function(Object) {
-    this.writeList.push(Object);
+ProfileSchema.methods.addPrintList = function(Object) {
+    this.printList.push(Object);
 };
 
 ProfileSchema.methods.getAge = function() {
@@ -33,19 +32,13 @@ ProfileSchema.methods.getPrintList = function() {
     return this.printList;
 };
 
-ProfileSchema.methods.getWriteList = function() {
-    return this.writeList;
-};
-
-ProfileSchema.methods.deleteWrite = function(_id) {
-    let i = 0;
-    for(i = 0; i < this.writeList.length; i++){
-        if(this.writeList[i]._id.equals(_id)) {
-            break;
-        }
-    }
-
-    this.writeList.splice(i, 1);
+ProfileSchema.methods.havePrint = function(_id) {
+    let i;
+    for(i = 0; i < this.printList.length; i++) 
+        if(this.printList[i]._id.equals(_id)) 
+            return true;
+    
+    return false;
 };
 
 module.exports = mongoose.model("Profile", ProfileSchema);
