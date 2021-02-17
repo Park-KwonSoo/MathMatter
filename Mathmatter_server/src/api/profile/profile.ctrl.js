@@ -137,7 +137,8 @@ exports.getWriteList = async (ctx) => {
         
         const profile = await Profile.findByUserId(userId);
 
-        ctx.body = profile.getWriteList();;
+        //최근에 쓴 글을 쉽게 보기 위해 역순으로 출력
+        ctx.body = profile.getWriteList().reverse();
 
     } catch(e) {
         ctx.stauts = 500;
