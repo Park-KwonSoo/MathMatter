@@ -39,8 +39,7 @@ exports.writing = async (ctx) => {
         //방금 작성한 글에 대한 정보를 보인다.
         ctx.body = write;
     } catch(e) {
-        ctx.status = 500;
-        return;
+        ctx.throw(500, e);
     }
     
 }
@@ -85,8 +84,7 @@ exports.seeWriting = async (ctx) => {
 
         ctx.body = write;
     } catch(e) {
-        ctx.status = 500;
-        return;
+        ctx.throw(500, e);
     }
 
 }
@@ -106,27 +104,27 @@ exports.deleteWriting = async(ctx) => {
         const { postId } = ctx.params;
         //삭제할 글을 불러온다.
         const write = await Write.findByPostId(postId);
+        const { _id } = write;
 
         //만약 로그인한 사용자와 삭제하려는 글의 작성자가 일치하지 않는다면, 삭제를 못한다.
         if(write.userId != userId) {
-            ctx.body = '삭제할 권한이 없습니다.'
+            ctx.status = 401;
             return;
         }
 
 
         //프로필의 글 목록에서 해당 postID를 가진 글을 삭제한 후 업데이트
-        await profile.deleteWrite(write._id);
+        await profile.deleteWrite(_id);
         await Profile.updateOne({ userId }, profile, {
             new : true
         });
 
         //글 데이터베이스에서 해당 글 삭제
-        await Write.deleteOne({ postId });
+        await Write.deleteOne({_id});
         
         ctx.body = null;
 
     } catch(e) {
-        ctx.status = 500;
-        return;
+        ctx.throw(500, e);
     }
 }
