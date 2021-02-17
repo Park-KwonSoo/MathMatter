@@ -27,17 +27,21 @@ exports.writing = async (ctx) => {
             body
         });
 
+        //작성한 글을 데이터베이스에 저장하고
+        await write.save()
+
+        const { _id } = write;
+        const profileSaveWrite = await Write.findById(_id);
+
         //프로필 작성자 목록에 글 추가 해준다
-        await profile.addWriteList(write);
+        await profile.addWriteList(profileSaveWrite);
         await Profile.updateOne({ userId }, profile, {
             new : true
         });
-
-        //작성한 글을 데이터베이스에 저장하고
-        await write.save()
         
         //방금 작성한 글에 대한 정보를 보인다.
-        ctx.body = write;
+        ctx.body = profileSaveWrite;
+        
     } catch(e) {
         ctx.throw(500, e);
     }
