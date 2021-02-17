@@ -1,4 +1,5 @@
 const Profile = require('../../models/profile');
+
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
@@ -121,28 +122,3 @@ exports.getPrintList = async (ctx) => {
         return ctx.throw(500, e);
     }
 }
-
-/**
- *  GET Write LIST
- *  GET user Writing List
- */
-exports.getWriteList = async (ctx) => {
-    const token = ctx.cookies.get('access_token');
-
-    if(!token)
-        return;
-
-    try {
-        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
-        
-        const profile = await Profile.findByUserId(userId);
-
-        //최근에 쓴 글을 쉽게 보기 위해 역순으로 출력
-        ctx.body = profile.getWriteList().reverse();
-
-    } catch(e) {
-        ctx.stauts = 500;
-        return;
-    }
-}
- 
