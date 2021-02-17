@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as profileActions from '../../redux/modules/profile';
 import * as writeActions from '../../redux/modules/write';
 
 import { WriteWrapper, WriteContents, WriteButton, TitleInput, BodyInput } from '../../components/Write';
 import { Error } from '../../components/Base';
-import { Write } from '../../pages';
 
 
 class EditMyWrite extends Component {
@@ -107,15 +105,12 @@ class EditMyWrite extends Component {
 
 export default connect (
     (state) => ({
-        logged : state.profile.get('logged'),
-        profileInfo : state.profile.get('profileInfo'),
         errorProfile : state.profile.get('error'),
         errorWrite : state.write.get('error'),
         writing : state.write.get('writing'),
         viewing : state.write.get('viewing')
     }),
     (dispatch) => ({
-        ProfileActions : bindActionCreators(profileActions, dispatch),
         WriteActions : bindActionCreators(writeActions, dispatch)
     })
 )(EditMyWrite)
