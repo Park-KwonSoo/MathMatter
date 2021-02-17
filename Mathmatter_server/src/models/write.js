@@ -27,6 +27,10 @@ WriteSchema.statics.findByPostId = function(postId) {
     return this.findOne({ postId });
 }
 
+WriteSchema.methods.addReplying = function(Object) {
+    this.comments.push(Object);
+}
+
 WriteSchema.methods.getWriting = function() {
     return this.body;
 }
