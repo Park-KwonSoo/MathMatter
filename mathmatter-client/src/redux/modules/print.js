@@ -4,6 +4,7 @@ import { pender } from 'redux-pender';
 
 import * as PrintAPI from '../../lib/api/print';
 
+
 const INITIALIZE_MAKE_PRINT = 'print/INITIALIZE_MAKE_PRINT';
 const MAKE_PRINT = 'print/MAKE_PRINT';
 const SET_PRINT = 'print/SET_PRINT';
@@ -36,7 +37,7 @@ const initialState = Map({
 });
 
 export default handleActions({
-    [INITIALIZE_MAKE_PRINT] : (state) => state.set('makeInfo', initialState),
+    [INITIALIZE_MAKE_PRINT] : (state) => state.set('makeInfo', initialState.get('makeInfo')),
     [MAKE_PRINT] : (state, action) => {
         const { name, value } = action.payload;
         return state.setIn(['makeInfo', name], value);

@@ -96,6 +96,6 @@ export default handleActions({
     }),
     ...pender({
         type : WITHDRAW,
-        onSuccess : (state) => state.set(initialState, initialState)
+        onSuccess : () => initialState
     })
 }, initialState);

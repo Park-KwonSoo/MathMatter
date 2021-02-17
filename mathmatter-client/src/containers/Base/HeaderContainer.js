@@ -22,12 +22,12 @@ class HeaderContainer extends Component {
     }
 
     render() {
-        const { profile } = this.props;
+        const { logged } = this.props;
         const { handleLogout } = this;
         
         return (
             <Header>
-                { profile.get('logged')
+                { logged
                     ? <LogoutButton onClick = {handleLogout}/> : <LoginButton/>
                 } 
             </Header>
@@ -37,7 +37,7 @@ class HeaderContainer extends Component {
 
 export default connect(
     (state) => ({
-        profile : state.profile
+        logged : state.profile.get('logged')
     }),
     (dispatch) => ({
         ProfileActions : bindActionCreators(profileActions, dispatch)

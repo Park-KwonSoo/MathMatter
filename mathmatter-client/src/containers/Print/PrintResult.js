@@ -44,7 +44,7 @@ class PrintResult extends Component {
 
     handleGoBack = () => {
         const { history } = this.props;
-        history.push('/print/info');
+        history.push('/print/myprint');
     }
 
     render() {

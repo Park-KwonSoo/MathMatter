@@ -37,19 +37,20 @@ const LocationRight = styled.div `
 
 const BackButton = styled.button `
     background : white;
+    color : ${oc.teal[7]};
     text-decoration : none;
-    padding : 0rem 1.5rem;
+    font-family :Raleway;
     cursor : pointer;
+    
     border : 1.5px solid;
     border-radius : 3px;
 
-    font-family :Raleway;
-
     margin-left : 1rem;
     height : 2.5rem;
+    padding : 0rem 1.5rem;
 
     &:hover {
-        background : ${oc.teal[5]};
+        background : ${oc.teal[7]};
         color : white;
         ${shadow[1]};
     }

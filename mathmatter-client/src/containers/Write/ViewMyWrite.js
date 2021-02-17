@@ -8,7 +8,8 @@ import * as writeActions from '../../redux/modules/write';
 import { WriteWrapper } from '../../components/Write';
 import { Error } from '../../components/Base';
 
-class Writing extends Component {
+//toDo : 페이지네이션
+class ViewMyWrite extends Component {
 
     handleGoBack = () => {
         const { history } = this.props;
@@ -16,11 +17,12 @@ class Writing extends Component {
     }
 
     render() {
+        const { myWritingList } = this.props;
         const { handleGoBack } = this;
 
         return (
-            <WriteWrapper title = 'Writing Page' onClick = {handleGoBack}>
-
+            <WriteWrapper title = 'My Write' onClick = {handleGoBack}>
+                
             </WriteWrapper>
         )
     }
@@ -31,10 +33,10 @@ export default connect(
         logged : state.profile.get('logged'),
         errorProfile : state.profile.get('error'),
         errorWrite : state.write.get('error'),
-        writing : state.write.get('writing')
+        myWritingList : state.write.get('myWritingList')
     }),
     (dispatch) => ({
         ProfileActions : bindActionCreators(profileActions, dispatch),
         WriteActions : bindActionCreators(writeActions, dispatch)
     })
-)(Writing)
+)(ViewMyWrite)

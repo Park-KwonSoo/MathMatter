@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import HeaderContainer from './containers/Base/HeaderContainer';
-import { Home, Auth, Profile, Print } from './pages';
+import { Home, Auth, Profile, Print, Write } from './pages';
 
 import storage from './lib/storage';
 import { connect } from 'react-redux';
@@ -42,6 +42,7 @@ class App extends Component {
           <Route path = '/auth' component = { Auth }/>
           <Route path = '/profile' component = { Profile }/>
           <Route path = '/print' component = { Print }/>
+          <Route path = '/write' component = { Write }/>
         </div>
     );
   }

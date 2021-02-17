@@ -67,10 +67,10 @@ class PrintMenu extends Component {
         const { handleGetPrintList, handleGoBack } = this;
 
         return (
-            <PrintMenuWrapper title = "Print" onClick = {handleGoBack}>
+            <PrintMenuWrapper title = "Print Menu" onClick = {handleGoBack}>
                 <Contents>
                     <SelectButton to = '/print/set'>문제 생성</SelectButton>
-                    <SelectButton to = '/print/info' onClick = {handleGetPrintList}>나의 정보</SelectButton>
+                    <SelectButton to = '/print/myprint' onClick = {handleGetPrintList}>나의 정보</SelectButton>
                 </Contents>
                 <Contents>
                 {

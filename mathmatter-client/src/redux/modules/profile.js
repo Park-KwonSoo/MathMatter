@@ -5,6 +5,7 @@ import * as AuthAPI from '../../lib/api/auth';
 import * as ProfileAPI from '../../lib/api/profile'
 import { pender } from 'redux-pender';
 
+
 const CHANGE_PROFILE = 'profile/CHANGE_PROFILE';
 const INITIALIZE_CHANGEINFO = 'profile/INITIALIZE_CHANGEINFO';
 
@@ -52,7 +53,7 @@ export default handleActions({
         const { name, value } = action.payload;
         return state.setIn(['changeInfo', name], value);
     },
-    [INITIALIZE_CHANGEINFO] : (state) => state.set(initialState),
+    [INITIALIZE_CHANGEINFO] : (state) => state.set('changeInfo', initialState.get('changeInfo')),
     [LOGOUT] : (state) => {
         state.set(initialState);
     },
