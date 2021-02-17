@@ -1,4 +1,5 @@
 const Write = require('../../models/write');
+const Reply = require('../../models/write');
 const Profile = require('../../models/profile');
 
 const jwt = require('jsonwebtoken');
@@ -49,11 +50,33 @@ exports.writing = async (ctx) => {
 }
 
 /**
- *  POST    Reply
+ *  PATCH   Reply
  */
 exports.replying = async (ctx) => {
-    //const { postId } = ctx.params;
-    //구현 예정
+    const token = ctx.cookies.get('access_token');
+    if(!token)  return;
+
+    try {
+        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+        const { body } = ctx.request.body;
+
+        const { postId } = ctx.params;
+        const write = await Write.findByPostId(postId);
+
+        await write.addReplying({
+            userId,
+            body
+        });
+
+        await Write.updateOne({ postId }, write, {
+            new : true
+        });
+
+        ctx.body = write;
+
+    }   catch(e) {
+        ctx.throw(500, e);
+    }
 }
 
 /**
