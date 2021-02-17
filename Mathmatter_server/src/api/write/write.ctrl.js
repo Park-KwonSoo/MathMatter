@@ -110,10 +110,48 @@ exports.seeWriting = async (ctx) => {
         const write = await Write.findByPostId(postId);
 
         ctx.body = write;
+
     } catch(e) {
         ctx.throw(500, e);
     }
 
+}
+
+/**
+ *  PATCH   Editing
+ */
+exports.editWriting = async(ctx) => {
+    const token = ctx.cookies.get('access_token');
+    if(!token)  return;
+
+    try {
+        const { postId } = ctx.params;
+        const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+        const write = await Write.findByPostId(postId);
+
+        if(write.userId != userId) {
+            ctx.status = 401;
+            return;
+        }
+
+        const { title, body } = ctx.request.body;
+
+        if(title != "")
+            await Write.updateOne({ postId }, { title }, {
+                new : true
+            });
+
+        if(body != "")
+            await Write.updateOne({ postId }, { body }, {
+                new : true
+            });
+
+        ctx.body = await Write.findByPostId(postId);
+
+    }   catch(e) {
+        ctx.throw(500, e);
+    }
 }
 
 /**

@@ -7,6 +7,7 @@ write.post('/write', writeCtrl.writing);
 write.patch('/:postId', writeCtrl.replying);
 write.get('/all', writeCtrl.seeAllWriting);
 write.get('/:postId', writeCtrl.seeWriting);
+write.patch('/:postId/edit', writeCtrl.editWriting);
 write.delete('/:postId', writeCtrl.deleteWriting);
 
 module.exports = write;
