@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import * as baseActions from '../../redux/modules/base';
 import * as profileActions from '../../redux/modules/profile';
 import * as printActions from '../../redux/modules/print';
 
 import { PrintMenuWrapper, GetPrintInfo, Contents } from '../../components/Print';
-import { Error } from '../../components/Base';
+import { Error, Pagination } from '../../components/Base';
 
 import storage from '../../lib/storage';
 
@@ -31,19 +32,37 @@ class PrintInfo extends Component {
         return false;
     }
 
+    currentPrints = (tmp, indexOfFirst, indexOfLast) => {
+        let currentPrints = 0;
+        currentPrints = tmp.slice(indexOfFirst, indexOfLast);
+        return currentPrints;
+    }
+
+    handlePagination = (page) => {
+        const { BaseActions } = this.props;
+        BaseActions.setCurrentPage(Number(page));
+    }
+
     handleGoBack = () => {
         const { history } = this.props;
         history.push('/print');
     }
 
     render() {
-        const { myPrintList, error } = this.props;
-        const { handleGoBack } = this;
+        const { myPrintList, error, currentPage, postsPerPage } = this.props;
+        const { currentPrints, handlePagination, handleGoBack } = this;
+
+        const indexOfLast = currentPage * postsPerPage;
+        const indexOfFirst = indexOfLast - postsPerPage;
 
         return (
             <PrintMenuWrapper title = 'My Print List' onClick = {handleGoBack}>
                 <Contents>
-                    <GetPrintInfo myPrintList = {myPrintList}/>
+                    <GetPrintInfo myPrintList = {currentPrints(myPrintList, indexOfFirst, indexOfLast)}/>
+                </Contents>
+                <Contents>
+                    <Pagination postsPerPage = {postsPerPage} totalPosts = {myPrintList.length} 
+                    paginate = {handlePagination}/>
                 </Contents>
                 <Contents>
                 {
@@ -60,9 +79,12 @@ export default connect (
     (state) => ({
         logged : state.profile.get('logged'),
         myPrintList : state.print.get('myPrintList'),
-        error : state.profile.get('error')
+        error : state.profile.get('error'),
+        currentPage : state.base.get('currentPage'),
+        postsPerPage : state.base.get('postsPerPage')
     }),
     (dispatch) => ({
+        BaseActions : bindActionCreators(baseActions, dispatch),
         ProfileActions : bindActionCreators(profileActions, dispatch),
         PrintActions : bindActionCreators(printActions, dispatch)
     })

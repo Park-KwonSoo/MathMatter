@@ -208,12 +208,26 @@ exports.withdraw = async (ctx) => {
     }
     
     //토큰을 디코드해서 ID를 받아오고 그 ID를 삭제한다.
-    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    const userId = decodedToken.userId;
+    const { userId } = await jwt.verify(token, process.env.JWT_SECRET);
 
     try {
+        const { password } = ctx.request.body;
+
+        const user = await User.findByUserId(userId);
+        const isPasswordTrue = await user.checkPassword(password);
+
+        if(!isPasswordTrue) {
+            ctx.status = 401;
+            return;
+        }
+
         await User.deleteOne({ userId });
         await Profile.deleteOne({ userId });
+
+        ctx.cookies.set('access_token', null, {
+            httpOnly : true,
+            maxAge : 0
+        });
 
         ctx.body = null;
     } catch(e) {
@@ -223,7 +237,7 @@ exports.withdraw = async (ctx) => {
 }
 
 /**
- *  GET USER PROFILE
+ *  GET USER ID
  */
 exports.check = async(ctx) => {
     const { user } = ctx.state;

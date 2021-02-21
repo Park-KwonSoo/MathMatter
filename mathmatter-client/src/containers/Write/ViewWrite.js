@@ -114,7 +114,7 @@ class ViewWrite extends Component {
         const { handleChange, handleReplying, handleDeleteWrite, handleGoBack, validate } = this;
 
         return (
-            <WriteWrapper title = '작성글' onClick = {handleGoBack}>
+            <WriteWrapper title = 'Writing' onClick = {handleGoBack}>
                 {
                     logged ? 
                     <ViewComponent 
