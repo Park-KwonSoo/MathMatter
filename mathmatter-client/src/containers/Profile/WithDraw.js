@@ -6,7 +6,7 @@ import * as authActions from '../../redux/modules/auth';
 import * as profileActions from '../../redux/modules/profile';
 
 import { ProfileContent } from '../../components/Profile';
-import { Error, JustLinkButton } from '../../components/Base';
+import { Error, InputWithLabel, JustLinkButton } from '../../components/Base';
 
 import storage from '../../lib/storage';
 
@@ -24,7 +24,14 @@ class WithDraw extends Component {
     }
 
     handleChange = (e) => {
+        const { AuthActions } = this.props;
+        const { name, value } = e.target;
 
+        AuthActions.changeInput({
+            name,
+            value,
+            form : 'withdraw'
+        });
     }
 
     handleWithDraw = async() => {
@@ -32,8 +39,12 @@ class WithDraw extends Component {
         if(!logged) this.setError('먼저 로그인을 해야합니다');
         
         try {
-            const { AuthActions } = this.props;
-            await AuthActions.withDraw();
+            const { AuthActions, withdraw } = this.props;
+            const { password } = withdraw.get('form').toJS();
+
+            await AuthActions.withDraw({
+                password
+            });
 
             storage.remove('loggedInfo');
             window.location.href = '/';
@@ -45,10 +56,15 @@ class WithDraw extends Component {
 
     render() {
         const { error } = this.props;
-        const { handleWithDraw } = this;
+        const { handleChange, handleWithDraw } = this;
 
         return (
             <ProfileContent title = 'WithDraw'>
+                <InputWithLabel
+                name = 'password'
+                placeholder = 'Check Password'
+                onChange = {handleChange}
+                />
                 <JustLinkButton onClick = {handleWithDraw}>정말 회원 탈퇴하시겠습니까?</JustLinkButton>
                 {
                     error && <Error>{error}</Error>
@@ -61,7 +77,8 @@ class WithDraw extends Component {
 export default connect (
     (state) => ({
         logged : state.profile.get('logged'),
-        error : state.profile.get('error')
+        error : state.profile.get('error'),
+        withdraw : state.auth.get('withdraw')
     }),
     (dispatch) => ({
         AuthActions : bindActionCreators(authActions, dispatch),

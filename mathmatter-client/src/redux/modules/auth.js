@@ -62,6 +62,11 @@ const initialState = Map({
         }),
         error : null
     }),
+    withdraw : Map({
+        form : Map({
+            password : ''
+        })
+    }),
     result : Map({})
 });
 
